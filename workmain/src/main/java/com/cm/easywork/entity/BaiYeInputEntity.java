@@ -1,5 +1,6 @@
 package com.cm.easywork.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 
 /*
@@ -9,12 +10,17 @@ import lombok.Data;
  */
 @Data
 public class BaiYeInputEntity {
-    //宽度
+
+    @ExcelProperty("宽度")
     private double width;
-    //高度
+
+    @ExcelProperty("高度")
     private double high;
-    //个数
+
+    @ExcelProperty("个数")
     private double number;
-    //孔数
+
+    @ExcelProperty("孔数")
     private double holes;
+
 }

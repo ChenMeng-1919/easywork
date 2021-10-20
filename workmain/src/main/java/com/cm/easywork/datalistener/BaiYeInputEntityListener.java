@@ -2,8 +2,7 @@ package com.cm.easywork.datalistener;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.read.metadata.holder.ReadRowHolder;
-import com.cm.easywork.entity.BaiYeEntity;
+import com.cm.easywork.entity.BaiYeInputEntity;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +15,10 @@ import java.util.List;
  * @date: Created in 2021/10/20 15:14
  * @description:
  */
-// 有个很重要的点 BaiYeEntityListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
+// 有个很重要的点 BaiYeInputEntityListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
 @Data
-public class BaiYeEntityListener extends AnalysisEventListener<BaiYeEntity> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BaiYeEntityListener.class);
+public class BaiYeInputEntityListener extends AnalysisEventListener<BaiYeInputEntity> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaiYeInputEntityListener.class);
     /**
      * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
      */
@@ -27,13 +26,13 @@ public class BaiYeEntityListener extends AnalysisEventListener<BaiYeEntity> {
     /**
      * 缓存的数据
      */
-    private List<BaiYeEntity> list = new ArrayList<>();
+    private List<BaiYeInputEntity> list = new ArrayList<>();
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
     //private DemoDAO demoDAO;
 
-    public BaiYeEntityListener() {
+    public BaiYeInputEntityListener() {
         // 这里是demo，所以随便new一个。实际使用如果到了spring,请使用下面的有参构造函数
         //demoDAO = new DemoDAO();
     }
@@ -43,7 +42,7 @@ public class BaiYeEntityListener extends AnalysisEventListener<BaiYeEntity> {
      *
      * @param demoDAO
      */
-    /*public BaiYeEntityListener(DemoDAO demoDAO) {
+    /*public BaiYeInputEntityListener(DemoDAO demoDAO) {
         this.demoDAO = demoDAO;
     }*/
 
@@ -54,7 +53,7 @@ public class BaiYeEntityListener extends AnalysisEventListener<BaiYeEntity> {
      * @param context
      */
     @Override
-    public void invoke(BaiYeEntity data, AnalysisContext context) {
+    public void invoke(BaiYeInputEntity data, AnalysisContext context) {
         //LOGGER.info("解析到一条数据:{}", JSON.toJSONString(data));
             list.add(data);
 
