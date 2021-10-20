@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
+import com.cm.easywork.commonutil.InfoUtils;
 import com.cm.easywork.datalistener.BaiYeInputEntityListener;
 import com.cm.easywork.entity.BaiYeEntity;
 import com.cm.easywork.entity.BaiYeInputEntity;
@@ -51,12 +52,50 @@ public class MainController {
         BaiYeInputEntityListener baiYeInputEntityListener = new BaiYeInputEntityListener();
         //通过监听器读取数据
         EasyExcel.read(file.getInputStream(), BaiYeInputEntity.class, baiYeInputEntityListener).sheet().doRead();
+        //准备填充数据
+        List<BaiYeEntity> baiYeEntitylist = new ArrayList<>();
         //获取读取到的数据集合
         List<BaiYeInputEntity> baiYeInputEntitylist = baiYeInputEntityListener.getList();
+        for (BaiYeInputEntity baiYeInputEntity : baiYeInputEntitylist) {
+            BaiYeEntity baiYeEntity1 = new BaiYeEntity();
+            baiYeEntity1.setWidth(baiYeInputEntity.getWidth());
+            baiYeEntity1.setHigh(baiYeInputEntity.getHigh());
+            baiYeEntity1.setNumber(baiYeInputEntity.getNumber());
+            baiYeEntity1.setFrameLength(baiYeInputEntity.getWidth());
+            baiYeEntity1.setFrameCount(baiYeInputEntity.getNumber() * 2);
+            baiYeEntity1.setArea(baiYeInputEntity.getWidth() * baiYeInputEntity.getHigh() * baiYeInputEntity.getNumber() * 0.000001);
+            baiYeEntitylist.add(baiYeEntity1);
+
+            BaiYeEntity baiYeEntity2 = new BaiYeEntity();
+            baiYeEntity2.setFrameLength(baiYeInputEntity.getWidth() - 40);
+            baiYeEntity2.setFrameCount(baiYeInputEntity.getNumber());
+            baiYeEntitylist.add(baiYeEntity2);
+
+            BaiYeEntity baiYeEntity3 = new BaiYeEntity();
+            baiYeEntity3.setFrameLength(baiYeInputEntity.getHigh() - 40);
+            baiYeEntity3.setFrameCount(baiYeInputEntity.getNumber() * 2);
+            baiYeEntitylist.add(baiYeEntity3);
+
+            BaiYeEntity baiYeEntity4 = new BaiYeEntity();
+            baiYeEntity4.setFrameLength(baiYeInputEntity.getWidth() - 50);
+            baiYeEntity4.setFrameCount(baiYeInputEntity.getNumber() * 4);
+            baiYeEntitylist.add(baiYeEntity4);
+
+            BaiYeEntity baiYeEntity5 = new BaiYeEntity();
+            baiYeEntity5.setFrameLength((baiYeInputEntity.getHigh() - 160) / 2);
+            baiYeEntity5.setFrameCount(baiYeInputEntity.getNumber() * 4);
+            baiYeEntity5.setHoles(InfoUtils.getHoles(baiYeInputEntity)[0]);
+            baiYeEntity5.setPosition(InfoUtils.getHoles(baiYeInputEntity)[1]);
+            baiYeEntity5.setLeafLength(baiYeInputEntity.getWidth() - 55);
+            baiYeEntity5.setLeafCount(2 * baiYeEntity5.getHoles() * 2);
+            baiYeEntitylist.add(baiYeEntity5);
+        }
+
+
         log.info("数据解析成功");
         //获取模板文件的输入流
         ClassPathResource classPathResource = new ClassPathResource("exceltemplate/融创云湖十里下料单-模板.xlsx");
-        InputStream inputStream =classPathResource.getInputStream();
+        InputStream inputStream = classPathResource.getInputStream();
 
         // 模板注意 用{} 来表示你要用的变量 如果本来就有"{","}" 特殊字符 用"\{","\}"代替
         // {} 代表普通变量 {.} 代表是list的变量
@@ -71,23 +110,6 @@ public class MainController {
         // 简单的说 如果你的模板有list,且list不是最后一行，下面还有数据需要填充 就必须设置 forceNewRow=true 但是这个就会把所有数据放到内存 会很耗内存
         // 如果数据量大 list不是最后一行 参照下一个
         FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
-        //准备填充数据
-        List<BaiYeEntity> baiYeEntitylist = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            BaiYeEntity baiYeEntity = new BaiYeEntity();
-            baiYeEntity.setWidth(1.0D);
-            baiYeEntity.setHigh(2.0D);
-            baiYeEntity.setNumber(3.0D);
-            baiYeEntity.setFrameLength(4.0D);
-            baiYeEntity.setFrameCount(5.0D);
-            baiYeEntity.setHoles(6.0D);
-            baiYeEntity.setPosition(7.0D);
-            baiYeEntity.setLeafLength(8.0D);
-            baiYeEntity.setLeafCount(9.0D);
-            baiYeEntity.setArea(10.0D);
-            baiYeEntity.setRemark("1111");
-            baiYeEntitylist.add(baiYeEntity);
-        }
         //填充数据
         excelWriter.fill(baiYeEntitylist, fillConfig, writeSheet);
         /*Map<String, Object> map = new HashMap<String, Object>();
@@ -102,7 +124,7 @@ public class MainController {
         HttpHeaders headers = new HttpHeaders();
         //通过ResponseEntity对象完成文件下载，需要注意的是writer对象生成的格式与导出文件的拓展名对应，否则就会提示无法打开文件，拓展名无效
         //在响应头中设置下载默认的名称
-        headers.add("Content-Disposition", "attachment;filename="  + URLEncoder.encode("融创云湖十里下料单-模板" + ".xlsx", "UTF-8"));
+        headers.add("Content-Disposition", "attachment;filename=" + URLEncoder.encode("融创云湖十里下料单-模板" + ".xlsx", "UTF-8"));
 
         return ResponseEntity.ok()
                 .headers(headers)
