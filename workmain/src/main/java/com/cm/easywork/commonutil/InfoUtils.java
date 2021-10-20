@@ -15,7 +15,8 @@ public class InfoUtils {
             double v = (((baiYeInputEntity.getHigh() - 160) / 2) - i * 145 + 70) / 2;
             if (v < 0) {
                 result[0] = i - 1;
-                result[1] = v;
+                result[1] = (((baiYeInputEntity.getHigh() - 160) / 2) - (i-1) * 145 + 70) / 2;;
+                break;
             }
         }
         return result;

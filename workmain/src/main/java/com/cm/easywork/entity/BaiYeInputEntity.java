@@ -23,4 +23,28 @@ public class BaiYeInputEntity {
     @ExcelProperty("孔数")
     private double holes;
 
+    @ExcelProperty("百叶间距")
+    private double louverSpacing;
+
+    @ExcelProperty("开门方式")
+    private String openWay;
+
+    @ExcelProperty("开门高度")
+    private double openHeight;
+
+    @ExcelProperty("项目")
+    private String project;
+
+    @ExcelProperty("颜色")
+    private String colour;
+
+    @ExcelProperty("日期")
+    private String date;
+
+    @ExcelProperty("边框")
+    private String frame;
+
+    @ExcelProperty("叶片")
+    private String blade;
+
 }

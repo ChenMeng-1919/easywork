@@ -10,26 +10,21 @@ import com.cm.easywork.entity.BaiYeEntity;
 import com.cm.easywork.entity.BaiYeInputEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /*
  * @author: cm
@@ -87,7 +82,7 @@ public class MainController {
             baiYeEntity5.setHoles(InfoUtils.getHoles(baiYeInputEntity)[0]);
             baiYeEntity5.setPosition(InfoUtils.getHoles(baiYeInputEntity)[1]);
             baiYeEntity5.setLeafLength(baiYeInputEntity.getWidth() - 55);
-            baiYeEntity5.setLeafCount(2 * baiYeEntity5.getHoles() * 2);
+            baiYeEntity5.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity5.getHoles() * 2);
             baiYeEntitylist.add(baiYeEntity5);
         }
 
