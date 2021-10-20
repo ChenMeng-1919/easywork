@@ -47,15 +47,23 @@ public class MainController {
     //百叶数据生成
     @PostMapping("/baiYeProducer")
     public ResponseEntity baiYeProducer(@RequestParam("file") MultipartFile file) throws IOException {
+        //创建解析监听器
         BaiYeInputEntityListener baiYeInputEntityListener = new BaiYeInputEntityListener();
+        //通过监听器读取数据
         EasyExcel.read(file.getInputStream(), BaiYeInputEntity.class, baiYeInputEntityListener).sheet().doRead();
+        //获取读取到的数据集合
         List<BaiYeInputEntity> baiYeInputEntitylist = baiYeInputEntityListener.getList();
         log.info("数据解析成功");
+        //获取模板文件的输入流
         ClassPathResource classPathResource = new ClassPathResource("exceltemplate/融创云湖十里下料单-模板.xlsx");
         InputStream inputStream =classPathResource.getInputStream();
+
         // 模板注意 用{} 来表示你要用的变量 如果本来就有"{","}" 特殊字符 用"\{","\}"代替
         // {} 代表普通变量 {.} 代表是list的变量
+
+        //创建回传文件的输出流
         ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+        //整合输入输出流，构建对象
         ExcelWriter excelWriter = EasyExcel.write(outByteStream).withTemplate(inputStream).build();
         WriteSheet writeSheet = EasyExcel.writerSheet().build();
         // 这里注意 入参用了forceNewRow 代表在写入list的时候不管list下面有没有空行 都会创建一行，然后下面的数据往后移动。默认 是false，会直接使用下一行，如果没有则创建。
@@ -63,6 +71,7 @@ public class MainController {
         // 简单的说 如果你的模板有list,且list不是最后一行，下面还有数据需要填充 就必须设置 forceNewRow=true 但是这个就会把所有数据放到内存 会很耗内存
         // 如果数据量大 list不是最后一行 参照下一个
         FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
+        //准备填充数据
         List<BaiYeEntity> baiYeEntitylist = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             BaiYeEntity baiYeEntity = new BaiYeEntity();
@@ -79,11 +88,14 @@ public class MainController {
             baiYeEntity.setRemark("1111");
             baiYeEntitylist.add(baiYeEntity);
         }
+        //填充数据
         excelWriter.fill(baiYeEntitylist, fillConfig, writeSheet);
         /*Map<String, Object> map = new HashMap<String, Object>();
         map.put("date", "2019年10月9日13:28:28");
         map.put("total", 1000);
         excelWriter.fill(map, writeSheet);*/
+
+        //关闭流对象
         excelWriter.finish();
         outByteStream.close();
         //回传文件
