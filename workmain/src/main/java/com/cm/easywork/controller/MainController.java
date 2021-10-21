@@ -110,12 +110,12 @@ public class MainController {
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
-                baiYeEntity2.setFrameLength(baiYeInputEntity.getWidth() - 40);
+                baiYeEntity2.setFrameLength(baiYeInputEntity.getHigh() - 40);
                 baiYeEntity2.setFrameCount(baiYeInputEntity.getNumber() * 2);
                 baiYeEntity2.setHoles(InfoUtils.getHolesGD(baiYeInputEntity)[0]);
                 baiYeEntity2.setPosition(InfoUtils.getHolesGD(baiYeInputEntity)[1]);
                 baiYeEntity2.setLeafLength(String.valueOf(baiYeInputEntity.getWidth() - 5));
-                baiYeEntity2.setLeafCount(baiYeInputEntity.getWidth() * baiYeEntity2.getHoles());
+                baiYeEntity2.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity2.getHoles());
                 baiYeEntitylist.add(baiYeEntity2);
 
                 if (baiYeInputEntity.getWidth() >= 1200) {
