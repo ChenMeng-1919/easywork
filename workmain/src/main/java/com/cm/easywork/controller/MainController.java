@@ -185,6 +185,64 @@ public class MainController {
                     baiYeEntitylist.add(baiYeEntity7);
                 }
             }
+            if ("半开门".equals(baiYeInputEntity.getOpenWay())) {
+                BaiYeEntity baiYeEntity1 = new BaiYeEntity();
+                baiYeEntity1.setWidth(baiYeInputEntity.getWidth());
+                baiYeEntity1.setHigh(baiYeInputEntity.getHigh());
+                baiYeEntity1.setNumber(baiYeInputEntity.getNumber());
+                baiYeEntity1.setFrameLength(baiYeInputEntity.getWidth());
+                baiYeEntity1.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity1.setArea(baiYeInputEntity.getWidth() * baiYeInputEntity.getHigh() * baiYeInputEntity.getNumber() * 0.000001);
+                baiYeEntitylist.add(baiYeEntity1);
+
+                BaiYeEntity baiYeEntity2 = new BaiYeEntity();
+                baiYeEntity2.setFrameLength(baiYeInputEntity.getWidth() - 40);
+                baiYeEntity2.setFrameCount(baiYeInputEntity.getNumber());
+                baiYeEntitylist.add(baiYeEntity2);
+
+                BaiYeEntity baiYeEntity3 = new BaiYeEntity();
+                baiYeEntity3.setFrameLength(baiYeInputEntity.getHigh() - 40);
+                baiYeEntity3.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity3.setHoles(InfoUtils.getHolesBK1(baiYeInputEntity)[0]);
+                baiYeEntity3.setPosition(InfoUtils.getHolesBK1(baiYeInputEntity)[1]);
+                baiYeEntity3.setLeafLength(String.valueOf(baiYeInputEntity.getWidth() - 5));
+                baiYeEntity3.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity3.getHoles());
+                baiYeEntitylist.add(baiYeEntity3);
+
+                if (baiYeInputEntity.getWidth() >= 1200) {
+                    BaiYeEntity baiYeEntity4 = new BaiYeEntity();
+                    baiYeEntity4.setFrameLength((baiYeInputEntity.getHigh() - 60) / 2);
+                    baiYeEntity4.setFrameCount(baiYeInputEntity.getNumber());
+                    baiYeEntity4.setHoles(InfoUtils.getHolesBK1(baiYeInputEntity)[0]);
+                    baiYeEntity4.setPosition(InfoUtils.getHolesBK1(baiYeInputEntity)[1]);
+                    baiYeEntity4.setLeafLength("通孔");
+                    baiYeEntitylist.add(baiYeEntity4);
+                }
+
+                BaiYeEntity baiYeEntity5 = new BaiYeEntity();
+                baiYeEntity5.setFrameLength(baiYeInputEntity.getWidth() - 40 - 10);
+                baiYeEntity5.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntitylist.add(baiYeEntity5);
+
+                BaiYeEntity baiYeEntity6 = new BaiYeEntity();
+                baiYeEntity6.setFrameLength(((baiYeInputEntity.getOpenHeight() - 60) / 2) - 50);
+                baiYeEntity6.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity6.setHoles(InfoUtils.getHolesBK2(baiYeInputEntity)[0]);
+                baiYeEntity6.setPosition(InfoUtils.getHolesBK2(baiYeInputEntity)[1]);
+                baiYeEntity6.setLeafLength(String.valueOf(baiYeInputEntity.getWidth() - 40 - 10 - 5));
+                baiYeEntity6.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity6.getHoles());
+                baiYeEntitylist.add(baiYeEntity6);
+
+                if (baiYeInputEntity.getWidth() >= 1200) {
+                    BaiYeEntity baiYeEntity7 = new BaiYeEntity();
+                    baiYeEntity7.setFrameLength(((baiYeInputEntity.getOpenHeight() - 60) / 2) - 50);
+                    baiYeEntity7.setFrameCount(baiYeInputEntity.getNumber());
+                    baiYeEntity7.setHoles(InfoUtils.getHolesBK2(baiYeInputEntity)[0]);
+                    baiYeEntity7.setPosition(InfoUtils.getHolesBK2(baiYeInputEntity)[1]);
+                    baiYeEntity7.setLeafLength("通孔");
+                    baiYeEntitylist.add(baiYeEntity7);
+                }
+            }
         }
 
         log.info("数据解析成功");

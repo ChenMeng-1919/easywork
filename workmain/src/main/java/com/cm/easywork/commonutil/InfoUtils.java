@@ -63,4 +63,32 @@ public class InfoUtils {
         }
         return result;
     }
+
+    //半开上计算孔数和定位
+    public static double[] getHolesBK1(BaiYeInputEntity baiYeInputEntity) {
+        double[] result = new double[2];
+        for (int i = 0; i < 100; i++) {
+            double v = (((baiYeInputEntity.getOpenHeight() - 60) / 2) - i * (75 + baiYeInputEntity.getLouverSpacing()) + baiYeInputEntity.getLouverSpacing()) / 2;
+            if (v < 0) {
+                result[0] = i - 1;
+                result[1] = (((baiYeInputEntity.getOpenHeight() - 60) / 2) - (i - 1) * (75 + baiYeInputEntity.getLouverSpacing()) + baiYeInputEntity.getLouverSpacing()) / 2;
+                break;
+            }
+        }
+        return result;
+    }
+
+    //半开下计算孔数和定位
+    public static double[] getHolesBK2(BaiYeInputEntity baiYeInputEntity) {
+        double[] result = new double[2];
+        for (int i = 0; i < 100; i++) {
+            double v = ((((baiYeInputEntity.getOpenHeight() - 60) / 2) - 50) - i * (75 + baiYeInputEntity.getLouverSpacing()) + baiYeInputEntity.getLouverSpacing()) / 2;
+            if (v < 0) {
+                result[0] = i - 1;
+                result[1] = ((((baiYeInputEntity.getOpenHeight() - 60) / 2) - 50) - (i - 1) * (75 + baiYeInputEntity.getLouverSpacing()) + baiYeInputEntity.getLouverSpacing()) / 2;
+                break;
+            }
+        }
+        return result;
+    }
 }
