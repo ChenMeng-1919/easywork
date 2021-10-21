@@ -162,16 +162,16 @@ public class MainController {
                 }
 
                 BaiYeEntity baiYeEntity5 = new BaiYeEntity();
-                baiYeEntity5.setFrameLength(baiYeInputEntity.getHigh() - 40 - 10);
+                baiYeEntity5.setFrameLength(baiYeInputEntity.getWidth() - 40 - 10);
                 baiYeEntity5.setFrameCount(baiYeInputEntity.getNumber() * 2);
                 baiYeEntitylist.add(baiYeEntity5);
 
                 BaiYeEntity baiYeEntity6 = new BaiYeEntity();
-                baiYeEntity6.setFrameLength(baiYeInputEntity.getHigh() - 50);
+                baiYeEntity6.setFrameLength(baiYeInputEntity.getOpenHeight() - 50);
                 baiYeEntity6.setFrameCount(baiYeInputEntity.getNumber() * 2);
                 baiYeEntity6.setHoles(InfoUtils.getHolesDK2(baiYeInputEntity)[0]);
                 baiYeEntity6.setPosition(InfoUtils.getHolesDK2(baiYeInputEntity)[1]);
-                baiYeEntity6.setLeafLength(String.valueOf(baiYeInputEntity.getHigh() - 40 - 10 - 5));
+                baiYeEntity6.setLeafLength(String.valueOf(baiYeInputEntity.getWidth() - 40 - 10 - 5));
                 baiYeEntity6.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity6.getHoles());
                 baiYeEntitylist.add(baiYeEntity6);
 
