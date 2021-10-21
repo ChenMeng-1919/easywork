@@ -24,7 +24,7 @@ public class BaiYeEntity {
     //定位
     private double position;
     //叶片长度
-    private double leafLength;
+    private String leafLength;
     //叶片支数
     private double leafCount;
     //面积

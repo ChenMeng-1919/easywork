@@ -20,9 +20,6 @@ public class BaiYeInputEntity {
     @ExcelProperty("个数")
     private double number;
 
-    @ExcelProperty("孔数")
-    private double holes;
-
     @ExcelProperty("百叶间距")
     private double louverSpacing;
 
