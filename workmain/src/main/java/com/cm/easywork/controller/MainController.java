@@ -55,106 +55,112 @@ public class MainController {
         List<BaiYeInputEntity> baiYeInputEntitylist = baiYeInputEntityListener.getList();
 
         for (BaiYeInputEntity baiYeInputEntity : baiYeInputEntitylist) {
-            if ("双开门".equals(baiYeInputEntity.getOpenWay())) {
+            //提取本地变量
+            String openWay = baiYeInputEntity.getOpenWay();
+            double width = baiYeInputEntity.getWidth();
+            double high = baiYeInputEntity.getHigh();
+            double number = baiYeInputEntity.getNumber();
+
+            if ("双开门".equals(openWay)) {
                 BaiYeEntity baiYeEntity1 = new BaiYeEntity();
-                baiYeEntity1.setWidth(baiYeInputEntity.getWidth());
-                baiYeEntity1.setHigh(baiYeInputEntity.getHigh());
-                baiYeEntity1.setNumber(baiYeInputEntity.getNumber());
-                baiYeEntity1.setFrameLength(baiYeInputEntity.getWidth());
-                baiYeEntity1.setFrameCount(baiYeInputEntity.getNumber() * 2);
-                baiYeEntity1.setArea(baiYeInputEntity.getWidth() * baiYeInputEntity.getHigh() * baiYeInputEntity.getNumber() * 0.000001);
+                baiYeEntity1.setWidth(width);
+                baiYeEntity1.setHigh(high);
+                baiYeEntity1.setNumber(number);
+                baiYeEntity1.setFrameLength(width);
+                baiYeEntity1.setFrameCount(number * 2);
+                baiYeEntity1.setArea(width * high * number * 0.000001);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
-                baiYeEntity2.setFrameLength(baiYeInputEntity.getWidth() - 40);
-                baiYeEntity2.setFrameCount(baiYeInputEntity.getNumber());
+                baiYeEntity2.setFrameLength(width - 40);
+                baiYeEntity2.setFrameCount(number);
                 baiYeEntitylist.add(baiYeEntity2);
 
                 BaiYeEntity baiYeEntity3 = new BaiYeEntity();
-                baiYeEntity3.setFrameLength(baiYeInputEntity.getHigh() - 40);
-                baiYeEntity3.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity3.setFrameLength(high - 40);
+                baiYeEntity3.setFrameCount(number * 2);
                 baiYeEntitylist.add(baiYeEntity3);
 
                 BaiYeEntity baiYeEntity4 = new BaiYeEntity();
-                baiYeEntity4.setFrameLength(baiYeInputEntity.getWidth() - 40 - 10);
-                baiYeEntity4.setFrameCount(baiYeInputEntity.getNumber() * 4);
+                baiYeEntity4.setFrameLength(width - 40 - 10);
+                baiYeEntity4.setFrameCount(number * 4);
                 baiYeEntitylist.add(baiYeEntity4);
 
                 BaiYeEntity baiYeEntity5 = new BaiYeEntity();
-                baiYeEntity5.setFrameLength((baiYeInputEntity.getHigh() - 40 - 120) / 2);
-                baiYeEntity5.setFrameCount(baiYeInputEntity.getNumber() * 4);
+                baiYeEntity5.setFrameLength((high - 40 - 120) / 2);
+                baiYeEntity5.setFrameCount(number * 4);
                 baiYeEntity5.setHoles(InfoUtils.getHolesSK(baiYeInputEntity)[0]);
                 baiYeEntity5.setPosition(InfoUtils.getHolesSK(baiYeInputEntity)[1]);
-                baiYeEntity5.setLeafLength(String.valueOf(baiYeInputEntity.getWidth() - 40 - 10 - 5));
-                baiYeEntity5.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity5.getHoles() * 2);
+                baiYeEntity5.setLeafLength(String.valueOf(width - 40 - 10 - 5));
+                baiYeEntity5.setLeafCount(number * baiYeEntity5.getHoles() * 2);
                 baiYeEntitylist.add(baiYeEntity5);
 
-                if (baiYeInputEntity.getWidth() - 40 - 10 >= 1200) {
+                if (width - 40 - 10 >= 1200) {
                     BaiYeEntity baiYeEntity6 = new BaiYeEntity();
-                    baiYeEntity6.setFrameLength((baiYeInputEntity.getHigh() - 40 - 120) / 2);
-                    baiYeEntity6.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                    baiYeEntity6.setFrameLength((high - 40 - 120) / 2);
+                    baiYeEntity6.setFrameCount(number * 2);
                     baiYeEntity6.setHoles(InfoUtils.getHolesSK(baiYeInputEntity)[0]);
                     baiYeEntity6.setPosition(InfoUtils.getHolesSK(baiYeInputEntity)[1]);
                     baiYeEntity6.setLeafLength("通孔");
                     baiYeEntitylist.add(baiYeEntity6);
                 }
             }
-            if ("固定".equals(baiYeInputEntity.getOpenWay())) {
+            if ("固定".equals(openWay)) {
                 BaiYeEntity baiYeEntity1 = new BaiYeEntity();
-                baiYeEntity1.setWidth(baiYeInputEntity.getWidth());
-                baiYeEntity1.setHigh(baiYeInputEntity.getHigh());
-                baiYeEntity1.setNumber(baiYeInputEntity.getNumber());
-                baiYeEntity1.setFrameLength(baiYeInputEntity.getWidth());
-                baiYeEntity1.setFrameCount(baiYeInputEntity.getNumber() * 2);
-                baiYeEntity1.setArea(baiYeInputEntity.getWidth() * baiYeInputEntity.getHigh() * baiYeInputEntity.getNumber() * 0.000001);
+                baiYeEntity1.setWidth(width);
+                baiYeEntity1.setHigh(high);
+                baiYeEntity1.setNumber(number);
+                baiYeEntity1.setFrameLength(width);
+                baiYeEntity1.setFrameCount(number * 2);
+                baiYeEntity1.setArea(width * high * number * 0.000001);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
-                baiYeEntity2.setFrameLength(baiYeInputEntity.getHigh() - 40);
-                baiYeEntity2.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity2.setFrameLength(high - 40);
+                baiYeEntity2.setFrameCount(number * 2);
                 baiYeEntity2.setHoles(InfoUtils.getHolesGD(baiYeInputEntity)[0]);
                 baiYeEntity2.setPosition(InfoUtils.getHolesGD(baiYeInputEntity)[1]);
-                baiYeEntity2.setLeafLength(String.valueOf(baiYeInputEntity.getWidth() - 5));
-                baiYeEntity2.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity2.getHoles());
+                baiYeEntity2.setLeafLength(String.valueOf(width - 5));
+                baiYeEntity2.setLeafCount(number * baiYeEntity2.getHoles());
                 baiYeEntitylist.add(baiYeEntity2);
 
-                if (baiYeInputEntity.getWidth() >= 1200) {
+                if (width >= 1200) {
                     BaiYeEntity baiYeEntity3 = new BaiYeEntity();
-                    baiYeEntity3.setFrameLength(baiYeInputEntity.getHigh() - 40);
-                    baiYeEntity3.setFrameCount(baiYeInputEntity.getNumber());
+                    baiYeEntity3.setFrameLength(high - 40);
+                    baiYeEntity3.setFrameCount(number);
                     baiYeEntity3.setHoles(InfoUtils.getHolesGD(baiYeInputEntity)[0]);
                     baiYeEntity3.setPosition(InfoUtils.getHolesGD(baiYeInputEntity)[1]);
                     baiYeEntitylist.add(baiYeEntity3);
                 }
             }
-            if ("单开门".equals(baiYeInputEntity.getOpenWay())) {
+            if ("单开门".equals(openWay)) {
                 BaiYeEntity baiYeEntity1 = new BaiYeEntity();
-                baiYeEntity1.setWidth(baiYeInputEntity.getWidth());
-                baiYeEntity1.setHigh(baiYeInputEntity.getHigh());
-                baiYeEntity1.setNumber(baiYeInputEntity.getNumber());
-                baiYeEntity1.setFrameLength(baiYeInputEntity.getWidth());
-                baiYeEntity1.setFrameCount(baiYeInputEntity.getNumber() * 2);
-                baiYeEntity1.setArea(baiYeInputEntity.getWidth() * baiYeInputEntity.getHigh() * baiYeInputEntity.getNumber() * 0.000001);
+                baiYeEntity1.setWidth(width);
+                baiYeEntity1.setHigh(high);
+                baiYeEntity1.setNumber(number);
+                baiYeEntity1.setFrameLength(width);
+                baiYeEntity1.setFrameCount(number * 2);
+                baiYeEntity1.setArea(width * high * number * 0.000001);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
-                baiYeEntity2.setFrameLength(baiYeInputEntity.getWidth() - 40);
-                baiYeEntity2.setFrameCount(baiYeInputEntity.getNumber());
+                baiYeEntity2.setFrameLength(width - 40);
+                baiYeEntity2.setFrameCount(number);
                 baiYeEntitylist.add(baiYeEntity2);
 
                 BaiYeEntity baiYeEntity3 = new BaiYeEntity();
-                baiYeEntity3.setFrameLength(baiYeInputEntity.getHigh() - 40);
-                baiYeEntity3.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity3.setFrameLength(high - 40);
+                baiYeEntity3.setFrameCount(number * 2);
                 baiYeEntity3.setHoles(InfoUtils.getHolesDK1(baiYeInputEntity)[0]);
                 baiYeEntity3.setPosition(InfoUtils.getHolesDK1(baiYeInputEntity)[1]);
-                baiYeEntity3.setLeafLength(String.valueOf(baiYeInputEntity.getWidth() - 5));
-                baiYeEntity3.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity3.getHoles());
+                baiYeEntity3.setLeafLength(String.valueOf(width - 5));
+                baiYeEntity3.setLeafCount(number * baiYeEntity3.getHoles());
                 baiYeEntitylist.add(baiYeEntity3);
 
-                if (baiYeInputEntity.getWidth() >= 1200) {
+                if (width >= 1200) {
                     BaiYeEntity baiYeEntity4 = new BaiYeEntity();
-                    baiYeEntity4.setFrameLength(baiYeInputEntity.getHigh() - 60 - baiYeInputEntity.getOpenHeight());
-                    baiYeEntity4.setFrameCount(baiYeInputEntity.getNumber());
+                    baiYeEntity4.setFrameLength(high - 60 - baiYeInputEntity.getOpenHeight());
+                    baiYeEntity4.setFrameCount(number);
                     baiYeEntity4.setHoles(InfoUtils.getHolesDK1(baiYeInputEntity)[0]);
                     baiYeEntity4.setPosition(InfoUtils.getHolesDK1(baiYeInputEntity)[1]);
                     baiYeEntity4.setLeafLength("通孔");
@@ -162,57 +168,57 @@ public class MainController {
                 }
 
                 BaiYeEntity baiYeEntity5 = new BaiYeEntity();
-                baiYeEntity5.setFrameLength(baiYeInputEntity.getWidth() - 40 - 10);
-                baiYeEntity5.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity5.setFrameLength(width - 40 - 10);
+                baiYeEntity5.setFrameCount(number * 2);
                 baiYeEntitylist.add(baiYeEntity5);
 
                 BaiYeEntity baiYeEntity6 = new BaiYeEntity();
                 baiYeEntity6.setFrameLength(baiYeInputEntity.getOpenHeight() - 50);
-                baiYeEntity6.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity6.setFrameCount(number * 2);
                 baiYeEntity6.setHoles(InfoUtils.getHolesDK2(baiYeInputEntity)[0]);
                 baiYeEntity6.setPosition(InfoUtils.getHolesDK2(baiYeInputEntity)[1]);
-                baiYeEntity6.setLeafLength(String.valueOf(baiYeInputEntity.getWidth() - 40 - 10 - 5));
-                baiYeEntity6.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity6.getHoles());
+                baiYeEntity6.setLeafLength(String.valueOf(width - 40 - 10 - 5));
+                baiYeEntity6.setLeafCount(number * baiYeEntity6.getHoles());
                 baiYeEntitylist.add(baiYeEntity6);
 
-                if (baiYeInputEntity.getWidth() >= 1200) {
+                if (width >= 1200) {
                     BaiYeEntity baiYeEntity7 = new BaiYeEntity();
                     baiYeEntity7.setFrameLength(baiYeInputEntity.getOpenHeight() - 50);
-                    baiYeEntity7.setFrameCount(baiYeInputEntity.getNumber());
+                    baiYeEntity7.setFrameCount(number);
                     baiYeEntity7.setHoles(InfoUtils.getHolesDK2(baiYeInputEntity)[0]);
                     baiYeEntity7.setPosition(InfoUtils.getHolesDK2(baiYeInputEntity)[1]);
                     baiYeEntity7.setLeafLength("通孔");
                     baiYeEntitylist.add(baiYeEntity7);
                 }
             }
-            if ("半开门".equals(baiYeInputEntity.getOpenWay())) {
+            if ("半开门".equals(openWay)) {
                 BaiYeEntity baiYeEntity1 = new BaiYeEntity();
-                baiYeEntity1.setWidth(baiYeInputEntity.getWidth());
-                baiYeEntity1.setHigh(baiYeInputEntity.getHigh());
-                baiYeEntity1.setNumber(baiYeInputEntity.getNumber());
-                baiYeEntity1.setFrameLength(baiYeInputEntity.getWidth());
-                baiYeEntity1.setFrameCount(baiYeInputEntity.getNumber() * 2);
-                baiYeEntity1.setArea(baiYeInputEntity.getWidth() * baiYeInputEntity.getHigh() * baiYeInputEntity.getNumber() * 0.000001);
+                baiYeEntity1.setWidth(width);
+                baiYeEntity1.setHigh(high);
+                baiYeEntity1.setNumber(number);
+                baiYeEntity1.setFrameLength(width);
+                baiYeEntity1.setFrameCount(number * 2);
+                baiYeEntity1.setArea(width * high * number * 0.000001);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
-                baiYeEntity2.setFrameLength(baiYeInputEntity.getWidth() - 40);
-                baiYeEntity2.setFrameCount(baiYeInputEntity.getNumber());
+                baiYeEntity2.setFrameLength(width - 40);
+                baiYeEntity2.setFrameCount(number);
                 baiYeEntitylist.add(baiYeEntity2);
 
                 BaiYeEntity baiYeEntity3 = new BaiYeEntity();
-                baiYeEntity3.setFrameLength(baiYeInputEntity.getHigh() - 40);
-                baiYeEntity3.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity3.setFrameLength(high - 40);
+                baiYeEntity3.setFrameCount(number * 2);
                 baiYeEntity3.setHoles(InfoUtils.getHolesBK1(baiYeInputEntity)[0]);
                 baiYeEntity3.setPosition(InfoUtils.getHolesBK1(baiYeInputEntity)[1]);
-                baiYeEntity3.setLeafLength(String.valueOf(baiYeInputEntity.getWidth() - 5));
-                baiYeEntity3.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity3.getHoles());
+                baiYeEntity3.setLeafLength(String.valueOf(width - 5));
+                baiYeEntity3.setLeafCount(number * baiYeEntity3.getHoles());
                 baiYeEntitylist.add(baiYeEntity3);
 
-                if (baiYeInputEntity.getWidth() >= 1200) {
+                if (width >= 1200) {
                     BaiYeEntity baiYeEntity4 = new BaiYeEntity();
-                    baiYeEntity4.setFrameLength((baiYeInputEntity.getHigh() - 60) / 2);
-                    baiYeEntity4.setFrameCount(baiYeInputEntity.getNumber());
+                    baiYeEntity4.setFrameLength((high - 60) / 2);
+                    baiYeEntity4.setFrameCount(number);
                     baiYeEntity4.setHoles(InfoUtils.getHolesBK1(baiYeInputEntity)[0]);
                     baiYeEntity4.setPosition(InfoUtils.getHolesBK1(baiYeInputEntity)[1]);
                     baiYeEntity4.setLeafLength("通孔");
@@ -220,23 +226,23 @@ public class MainController {
                 }
 
                 BaiYeEntity baiYeEntity5 = new BaiYeEntity();
-                baiYeEntity5.setFrameLength(baiYeInputEntity.getWidth() - 40 - 10);
-                baiYeEntity5.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity5.setFrameLength(width - 40 - 10);
+                baiYeEntity5.setFrameCount(number * 2);
                 baiYeEntitylist.add(baiYeEntity5);
 
                 BaiYeEntity baiYeEntity6 = new BaiYeEntity();
                 baiYeEntity6.setFrameLength(((baiYeInputEntity.getOpenHeight() - 60) / 2) - 50);
-                baiYeEntity6.setFrameCount(baiYeInputEntity.getNumber() * 2);
+                baiYeEntity6.setFrameCount(number * 2);
                 baiYeEntity6.setHoles(InfoUtils.getHolesBK2(baiYeInputEntity)[0]);
                 baiYeEntity6.setPosition(InfoUtils.getHolesBK2(baiYeInputEntity)[1]);
-                baiYeEntity6.setLeafLength(String.valueOf(baiYeInputEntity.getWidth() - 40 - 10 - 5));
-                baiYeEntity6.setLeafCount(baiYeInputEntity.getNumber() * baiYeEntity6.getHoles());
+                baiYeEntity6.setLeafLength(String.valueOf(width - 40 - 10 - 5));
+                baiYeEntity6.setLeafCount(number * baiYeEntity6.getHoles());
                 baiYeEntitylist.add(baiYeEntity6);
 
-                if (baiYeInputEntity.getWidth() >= 1200) {
+                if (width >= 1200) {
                     BaiYeEntity baiYeEntity7 = new BaiYeEntity();
                     baiYeEntity7.setFrameLength(((baiYeInputEntity.getOpenHeight() - 60) / 2) - 50);
-                    baiYeEntity7.setFrameCount(baiYeInputEntity.getNumber());
+                    baiYeEntity7.setFrameCount(number);
                     baiYeEntity7.setHoles(InfoUtils.getHolesBK2(baiYeInputEntity)[0]);
                     baiYeEntity7.setPosition(InfoUtils.getHolesBK2(baiYeInputEntity)[1]);
                     baiYeEntity7.setLeafLength("通孔");
