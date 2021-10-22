@@ -242,6 +242,45 @@ public class MainServiceImpl implements IMainService {
                     baiYeEntitylist.add(baiYeEntity7);
                 }
             }
+            if ("全开门".equals(openWay)) {
+                BaiYeEntity baiYeEntity1 = new BaiYeEntity();
+                baiYeEntity1.setWidth(width);
+                baiYeEntity1.setHigh(high);
+                baiYeEntity1.setNumber(number);
+                baiYeEntity1.setFrameLength(width);
+                baiYeEntity1.setFrameCount(number * 2);
+                baiYeEntity1.setArea(width * high * number * 0.000001);
+                baiYeEntitylist.add(baiYeEntity1);
+
+                BaiYeEntity baiYeEntity2 = new BaiYeEntity();
+                baiYeEntity2.setFrameLength(high - 40);
+                baiYeEntity2.setFrameCount(number * 2);
+                baiYeEntitylist.add(baiYeEntity2);
+
+                BaiYeEntity baiYeEntity3 = new BaiYeEntity();
+                baiYeEntity3.setFrameLength(width - 50);
+                baiYeEntity3.setFrameCount(number * 2);
+                baiYeEntitylist.add(baiYeEntity3);
+
+                BaiYeEntity baiYeEntity4 = new BaiYeEntity();
+                baiYeEntity4.setFrameLength(width - 40 - 50);
+                baiYeEntity4.setFrameCount(number * 2);
+                baiYeEntity4.setHoles(InfoUtils.getHolesQK(baiYeInputEntity)[0]);
+                baiYeEntity4.setPosition(InfoUtils.getHolesQK(baiYeInputEntity)[1]);
+                baiYeEntity4.setLeafLength(String.valueOf(width - 50 - 5));
+                baiYeEntity3.setFrameCount(number * 2);
+                baiYeEntitylist.add(baiYeEntity4);
+
+                if (width - 50 >= 1200) {
+                    BaiYeEntity baiYeEntity5 = new BaiYeEntity();
+                    baiYeEntity5.setFrameLength(width - 40 - 50);
+                    baiYeEntity5.setFrameCount(number);
+                    baiYeEntity5.setHoles(InfoUtils.getHolesQK(baiYeInputEntity)[0]);
+                    baiYeEntity5.setPosition(InfoUtils.getHolesQK(baiYeInputEntity)[1]);
+                    baiYeEntity5.setLeafLength("通孔");
+                    baiYeEntitylist.add(baiYeEntity5);
+                }
+            }
         }
 
         log.info("数据解析成功");

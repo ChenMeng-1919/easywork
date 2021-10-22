@@ -111,6 +111,22 @@ public class InfoUtils {
         return result;
     }
 
+    //全开门计算孔数和定位
+    public static double[] getHolesQK(BaiYeInputEntity baiYeInputEntity) {
+        double[] result = new double[2];
+        double high = baiYeInputEntity.getHigh();
+        double louverSpacing = baiYeInputEntity.getLouverSpacing();
+        for (int i = 0; i < 100; i++) {
+            double v = (((high - 40 - 50) - i * (75 + louverSpacing) + louverSpacing)) / 2;
+            if (v < 0) {
+                result[0] = i - 1;
+                result[1] = (((high - 40 - 50) - (i - 1) * (75 + louverSpacing) + louverSpacing)) / 2;
+                break;
+            }
+        }
+        return result;
+    }
+
     public static <E> ResponseEntity downFileResMake(String templateName, List<E> entityList, HashMap<String, String> otherInfoMap) throws IOException {
         ClassPathResource classPathResource = new ClassPathResource("exceltemplate" + File.separator + templateName);
         InputStream inputStream = classPathResource.getInputStream();
@@ -154,7 +170,7 @@ public class InfoUtils {
     }
 
     //泛型方法实例
-    public static <T> List<T> downFileResMake2( T entity) {
+    public static <T> List<T> downFileResMake2(T entity) {
         ArrayList<T> list = new ArrayList<>();
         return list;
     }
