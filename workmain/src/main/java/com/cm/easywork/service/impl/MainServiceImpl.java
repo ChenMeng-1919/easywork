@@ -42,10 +42,10 @@ public class MainServiceImpl implements IMainService {
         BaiYeInputEntityListener baiYeInputEntityListener = new BaiYeInputEntityListener();
         //通过监听器读取数据
         EasyExcel.read(file.getInputStream(), BaiYeInputEntity.class, baiYeInputEntityListener).sheet().doRead();
-        //准备填充数据
-        List<BaiYeEntity> baiYeEntitylist = new ArrayList<>();
         //获取读取到的数据集合
         List<BaiYeInputEntity> baiYeInputEntitylist = baiYeInputEntityListener.getList();
+        //准备填充数据
+        List<BaiYeEntity> baiYeEntitylist = new ArrayList<>();
 
         for (BaiYeInputEntity baiYeInputEntity : baiYeInputEntitylist) {
             //提取本地变量
