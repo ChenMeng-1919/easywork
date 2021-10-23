@@ -5,7 +5,6 @@ import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.cm.easywork.entity.BaiYeInputEntity;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,7 +18,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /*
  * @author: cm
@@ -113,6 +111,38 @@ public class InfoUtils {
 
     //全开门计算孔数和定位
     public static double[] getHolesQK(BaiYeInputEntity baiYeInputEntity) {
+        double[] result = new double[2];
+        double high = baiYeInputEntity.getHigh();
+        double louverSpacing = baiYeInputEntity.getLouverSpacing();
+        for (int i = 0; i < 100; i++) {
+            double v = (((high - 40 - 50) - i * (75 + louverSpacing) + louverSpacing)) / 2;
+            if (v < 0) {
+                result[0] = i - 1;
+                result[1] = (((high - 40 - 50) - (i - 1) * (75 + louverSpacing) + louverSpacing)) / 2;
+                break;
+            }
+        }
+        return result;
+    }
+
+    //左右开门计算孔数和定位
+    public static double[] getHolesZYK1(BaiYeInputEntity baiYeInputEntity) {
+        double[] result = new double[2];
+        double high = baiYeInputEntity.getHigh();
+        double louverSpacing = baiYeInputEntity.getLouverSpacing();
+        for (int i = 0; i < 100; i++) {
+            double v = (((high - 40) - i * (75 + louverSpacing) + louverSpacing)) / 2;
+            if (v < 0) {
+                result[0] = i - 1;
+                result[1] = (((high - 40) - (i - 1) * (75 + louverSpacing) + louverSpacing)) / 2;
+                break;
+            }
+        }
+        return result;
+    }
+
+    //左右开门计算孔数和定位
+    public static double[] getHolesZYK2(BaiYeInputEntity baiYeInputEntity) {
         double[] result = new double[2];
         double high = baiYeInputEntity.getHigh();
         double louverSpacing = baiYeInputEntity.getLouverSpacing();
