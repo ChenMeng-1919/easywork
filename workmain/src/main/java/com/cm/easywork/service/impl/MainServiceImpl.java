@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +54,9 @@ public class MainServiceImpl implements IMainService {
             double width = baiYeInputEntity.getWidth();
             double high = baiYeInputEntity.getHigh();
             double number = baiYeInputEntity.getNumber();
-            double openLength = Double.parseDouble(baiYeInputEntity.getOpenLength());
+
+            //将面积等数据四舍五入
+            DecimalFormat df = new DecimalFormat("#.00");
 
             if ("双开门".equals(openWay)) {
                 BaiYeEntity baiYeEntity1 = new BaiYeEntity();
@@ -62,7 +65,7 @@ public class MainServiceImpl implements IMainService {
                 baiYeEntity1.setNumber(number);
                 baiYeEntity1.setFrameLength(width);
                 baiYeEntity1.setFrameCount(number * 2);
-                baiYeEntity1.setArea(width * high * number * 0.000001);
+                baiYeEntity1.setArea(Double.parseDouble(df.format(width * high * number * 0.000001)));
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
@@ -283,6 +286,7 @@ public class MainServiceImpl implements IMainService {
                 }
             }
             if ("左右开门".equals(openWay)) {
+                double openLength = Double.parseDouble(baiYeInputEntity.getOpenLength());
                 BaiYeEntity baiYeEntity1 = new BaiYeEntity();
                 baiYeEntity1.setWidth(width);
                 baiYeEntity1.setHigh(high);
@@ -331,6 +335,8 @@ public class MainServiceImpl implements IMainService {
                 }
             }
             if ("左右对开门".equals(openWay)) {
+                double openLength = Double.parseDouble(baiYeInputEntity.getOpenLength());
+                
                 BaiYeEntity baiYeEntity1 = new BaiYeEntity();
                 baiYeEntity1.setWidth(width);
                 baiYeEntity1.setHigh(high);
@@ -381,6 +387,13 @@ public class MainServiceImpl implements IMainService {
         otherInfoMap.put("date", baiYeInputFirstEntity.getDate());
         otherInfoMap.put("frame", baiYeInputFirstEntity.getFrame());
         otherInfoMap.put("blade", baiYeInputFirstEntity.getBlade());
+
+        double sumNumber = baiYeEntitylist.stream().mapToDouble(t -> t.getNumber()).sum();
+        double sumLeafCount = baiYeEntitylist.stream().mapToDouble(t -> t.getLeafCount()).sum();
+        double sumArea = baiYeEntitylist.stream().mapToDouble(t -> t.getArea()).sum();
+        otherInfoMap.put("sumNumber", sumNumber);
+        otherInfoMap.put("sumLeafCount", sumLeafCount);
+        otherInfoMap.put("sumArea", sumArea);
         ResponseEntity responseEntity = this.downFileResMake(templateName, baiYeEntitylist, otherInfoMap);
         return responseEntity;
     }

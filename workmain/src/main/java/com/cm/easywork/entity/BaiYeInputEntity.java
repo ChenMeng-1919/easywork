@@ -23,11 +23,11 @@ public class BaiYeInputEntity {
     @ExcelProperty("百叶间距")
     private double louverSpacing;
 
-    @ExcelProperty("开门方式")
-    private String openWay;
-
     @ExcelProperty("开门长度")
     private String openLength;
+
+    @ExcelProperty("开门方式")
+    private String openWay;
 
     @ExcelProperty("开门高度")
     private double openHeight;
