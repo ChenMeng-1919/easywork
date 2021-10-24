@@ -361,7 +361,7 @@ public class MainServiceImpl implements IMainService {
                 baiYeEntity4.setHoles(InfoUtils.getHolesZYK2(baiYeInputEntity)[0]);
                 baiYeEntity4.setPosition(InfoUtils.getHolesZYK2(baiYeInputEntity)[1]);
                 baiYeEntity4.setLeafLength(String.valueOf((width - 60) / 2 - 10 - 5));
-                baiYeEntity4.setLeafCount(number * baiYeEntity4.getHoles());
+                baiYeEntity4.setLeafCount(number * baiYeEntity4.getHoles() * 2);
                 baiYeEntitylist.add(baiYeEntity4);
 
                 if ((width - 60) / 2 - 10 >= 1200) {
