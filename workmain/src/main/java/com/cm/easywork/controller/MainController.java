@@ -57,4 +57,14 @@ public class MainController {
         return responseEntity;
 
     }
+
+    //栏杆数据生成
+    @PostMapping("/lanGanProducer")
+    public ResponseEntity lanGanProducer(@RequestParam("file") MultipartFile file) throws IOException {
+
+        ResponseEntity responseEntity = iMainService.lanGanProcessing(file);
+
+        return responseEntity;
+
+    }
 }

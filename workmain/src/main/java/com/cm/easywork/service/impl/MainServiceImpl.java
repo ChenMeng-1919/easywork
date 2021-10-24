@@ -6,8 +6,11 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.cm.easywork.commonutil.InfoUtils;
 import com.cm.easywork.datalistener.BaiYeInputEntityListener;
+import com.cm.easywork.datalistener.LanGanInputEntityListener;
 import com.cm.easywork.entity.BaiYeEntity;
 import com.cm.easywork.entity.BaiYeInputEntity;
+import com.cm.easywork.entity.LanGanEntity;
+import com.cm.easywork.entity.LanGanInputEntity;
 import com.cm.easywork.service.IMainService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
@@ -400,6 +403,39 @@ public class MainServiceImpl implements IMainService {
         otherInfoMap.put("sumArea", bigDecimal);
         ResponseEntity responseEntity = this.downFileResMake(templateName, baiYeEntitylist, otherInfoMap);
         return responseEntity;
+    }
+
+    @Override
+    public ResponseEntity lanGanProcessing(MultipartFile file) throws IOException {
+        //创建解析监听器
+        LanGanInputEntityListener langaninputentitylistener = new LanGanInputEntityListener();
+        //通过监听器读取数据
+        EasyExcel.read(file.getInputStream(), LanGanInputEntity.class, langaninputentitylistener).sheet().doRead();
+        //获取读取到的数据集合
+        List<LanGanInputEntity> lanGanInputEntitylist = langaninputentitylistener.getList();
+        //准备填充数据
+        List<LanGanEntity> lanGanEntityList = new ArrayList<>();
+        for (LanGanInputEntity lanGanInputEntity : lanGanInputEntitylist) {
+            LanGanEntity lanGanEntity = new LanGanEntity();
+            lanGanEntity.setHigh(lanGanInputEntity.getHigh());
+            lanGanEntity.setLength(lanGanInputEntity.getLength());
+            lanGanEntity.setShards(lanGanInputEntity.getShards());
+            lanGanEntity.setHGnumberOfShards(0.0D);
+            lanGanEntity.setHGlength(0.0D);
+            lanGanEntity.setHGnumberOfWeldingRods(0.0D);
+            lanGanEntity.setHGverticalRods(0.0D);
+            lanGanEntity.setHGcount(0.0D);
+            lanGanEntity.setSGlength(0.0D);
+            lanGanEntity.setSGcount(0.0D);
+            lanGanEntity.setLZlength(0.0D);
+            lanGanEntity.setLZcount(0.0D);
+            lanGanEntity.setMGlength(0.0D);
+            lanGanEntity.setMGcount(0.0D);
+            lanGanEntity.setLeft(0.0D);
+            lanGanEntity.setRight(0.0D);
+
+        }
+        return null;
     }
 
     private <E> ResponseEntity downFileResMake(String templateName, List<E> entityList, Map<String, Object> otherInfoMap) throws IOException {

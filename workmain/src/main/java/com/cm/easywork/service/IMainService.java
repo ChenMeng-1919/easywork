@@ -13,4 +13,6 @@ import java.io.IOException;
 public interface IMainService {
 
     ResponseEntity baiYeProcessing(MultipartFile file) throws IOException;
+
+    ResponseEntity lanGanProcessing(MultipartFile file) throws IOException;
 }
