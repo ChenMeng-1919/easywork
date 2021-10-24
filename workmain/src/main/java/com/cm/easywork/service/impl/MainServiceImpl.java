@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +56,7 @@ public class MainServiceImpl implements IMainService {
             double number = baiYeInputEntity.getNumber();
 
             //将面积等数据四舍五入
-            BigDecimal area = BigDecimal.valueOf(width * high * number * 0.000001).setScale(2,BigDecimal.ROUND_HALF_UP);;
+            BigDecimal area = BigDecimal.valueOf(width * high * number * 0.000001).setScale(2, BigDecimal.ROUND_HALF_UP);
 
             if ("双开门".equals(openWay)) {
                 BaiYeEntity baiYeEntity1 = new BaiYeEntity();
@@ -390,10 +389,15 @@ public class MainServiceImpl implements IMainService {
 
         double sumNumber = baiYeEntitylist.stream().filter(t -> t.getNumber() != null).mapToDouble(BaiYeEntity::getNumber).sum();
         double sumLeafCount = baiYeEntitylist.stream().filter(t -> t.getLeafCount() != null).mapToDouble(BaiYeEntity::getLeafCount).sum();
-        double sumArea = baiYeEntitylist.stream().filter(t -> t.getArea() != null).mapToDouble(BaiYeEntity::getArea).sum();
+        BigDecimal bigDecimal = new BigDecimal("0");
+        for (BaiYeEntity baiYeEntity : baiYeEntitylist) {
+            if (baiYeEntity.getArea()!=null){
+                bigDecimal = bigDecimal.add(baiYeEntity.getArea());
+            }
+        }
         otherInfoMap.put("sumNumber", sumNumber);
         otherInfoMap.put("sumLeafCount", sumLeafCount);
-        otherInfoMap.put("sumArea", sumArea);
+        otherInfoMap.put("sumArea", bigDecimal);
         ResponseEntity responseEntity = this.downFileResMake(templateName, baiYeEntitylist, otherInfoMap);
         return responseEntity;
     }
