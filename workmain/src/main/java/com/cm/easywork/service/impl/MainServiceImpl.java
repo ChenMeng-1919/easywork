@@ -361,7 +361,7 @@ public class MainServiceImpl implements IMainService {
                 baiYeEntity4.setHoles(InfoUtils.getHolesZYK2(baiYeInputEntity)[0]);
                 baiYeEntity4.setPosition(InfoUtils.getHolesZYK2(baiYeInputEntity)[1]);
                 baiYeEntity4.setLeafLength(String.valueOf((width - 60) / 2 - 10 - 5));
-                baiYeEntity4.setLeafCount(number * baiYeEntity3.getHoles());
+                baiYeEntity4.setLeafCount(number * baiYeEntity4.getHoles());
                 baiYeEntitylist.add(baiYeEntity4);
 
                 if ((width - 60) / 2 - 10 >= 1200) {
@@ -387,9 +387,9 @@ public class MainServiceImpl implements IMainService {
         otherInfoMap.put("frame", baiYeInputFirstEntity.getFrame());
         otherInfoMap.put("blade", baiYeInputFirstEntity.getBlade());
 
-        double sumNumber = baiYeEntitylist.stream().mapToDouble(t -> t.getNumber()).sum();
-        double sumLeafCount = baiYeEntitylist.stream().mapToDouble(t -> t.getLeafCount()).sum();
-        double sumArea = baiYeEntitylist.stream().mapToDouble(t -> t.getArea()).sum();
+        double sumNumber = baiYeEntitylist.stream().filter(t -> t.getNumber() != null).mapToDouble(BaiYeEntity::getNumber).sum();
+        double sumLeafCount = baiYeEntitylist.stream().filter(t -> t.getLeafCount() != null).mapToDouble(BaiYeEntity::getLeafCount).sum();
+        double sumArea = baiYeEntitylist.stream().filter(t -> t.getArea() != null).mapToDouble(BaiYeEntity::getArea).sum();
         otherInfoMap.put("sumNumber", sumNumber);
         otherInfoMap.put("sumLeafCount", sumLeafCount);
         otherInfoMap.put("sumArea", sumArea);

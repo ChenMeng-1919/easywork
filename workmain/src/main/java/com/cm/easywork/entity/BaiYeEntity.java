@@ -10,25 +10,25 @@ import lombok.Data;
 @Data
 public class BaiYeEntity {
     //宽度
-    private double width;
+    private Double width;
     //高度
-    private double high;
+    private Double high;
     //个数
-    private double number;
+    private Double number;
     //边框长度
-    private double frameLength;
+    private Double frameLength;
     //边框支数
-    private double frameCount;
+    private Double frameCount;
     //孔数
-    private double holes;
+    private Double holes;
     //定位
-    private double position;
+    private Double position;
     //叶片长度
     private String leafLength;
     //叶片支数
-    private double leafCount;
+    private Double leafCount;
     //面积
-    private double area;
+    private Double area;
     //备注
     private String remark;
 
