@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class MainServiceImpl implements IMainService {
             double number = baiYeInputEntity.getNumber();
 
             //将面积等数据四舍五入
-            DecimalFormat df = new DecimalFormat("#.00");
+            BigDecimal area = BigDecimal.valueOf(width * high * number * 0.000001).setScale(2,BigDecimal.ROUND_HALF_UP);;
 
             if ("双开门".equals(openWay)) {
                 BaiYeEntity baiYeEntity1 = new BaiYeEntity();
@@ -65,7 +66,7 @@ public class MainServiceImpl implements IMainService {
                 baiYeEntity1.setNumber(number);
                 baiYeEntity1.setFrameLength(width);
                 baiYeEntity1.setFrameCount(number * 2);
-                baiYeEntity1.setArea(Double.parseDouble(df.format(width * high * number * 0.000001)));
+                baiYeEntity1.setArea(area);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
@@ -109,7 +110,7 @@ public class MainServiceImpl implements IMainService {
                 baiYeEntity1.setNumber(number);
                 baiYeEntity1.setFrameLength(width);
                 baiYeEntity1.setFrameCount(number * 2);
-                baiYeEntity1.setArea(width * high * number * 0.000001);
+                baiYeEntity1.setArea(area);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
@@ -137,7 +138,7 @@ public class MainServiceImpl implements IMainService {
                 baiYeEntity1.setNumber(number);
                 baiYeEntity1.setFrameLength(width);
                 baiYeEntity1.setFrameCount(number * 2);
-                baiYeEntity1.setArea(width * high * number * 0.000001);
+                baiYeEntity1.setArea(area);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
@@ -195,7 +196,7 @@ public class MainServiceImpl implements IMainService {
                 baiYeEntity1.setNumber(number);
                 baiYeEntity1.setFrameLength(width);
                 baiYeEntity1.setFrameCount(number * 2);
-                baiYeEntity1.setArea(width * high * number * 0.000001);
+                baiYeEntity1.setArea(area);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
@@ -253,7 +254,7 @@ public class MainServiceImpl implements IMainService {
                 baiYeEntity1.setNumber(number);
                 baiYeEntity1.setFrameLength(width);
                 baiYeEntity1.setFrameCount(number * 2);
-                baiYeEntity1.setArea(width * high * number * 0.000001);
+                baiYeEntity1.setArea(area);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
@@ -293,7 +294,7 @@ public class MainServiceImpl implements IMainService {
                 baiYeEntity1.setNumber(number);
                 baiYeEntity1.setFrameLength(width);
                 baiYeEntity1.setFrameCount(number * 2);
-                baiYeEntity1.setArea(width * high * number * 0.000001);
+                baiYeEntity1.setArea(area);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
@@ -342,7 +343,7 @@ public class MainServiceImpl implements IMainService {
                 baiYeEntity1.setNumber(number);
                 baiYeEntity1.setFrameLength(width);
                 baiYeEntity1.setFrameCount(number * 2);
-                baiYeEntity1.setArea(width * high * number * 0.000001);
+                baiYeEntity1.setArea(area);
                 baiYeEntitylist.add(baiYeEntity1);
 
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();

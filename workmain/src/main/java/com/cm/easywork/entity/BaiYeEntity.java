@@ -2,6 +2,8 @@ package com.cm.easywork.entity;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /*
  * @author: cm
  * @date: Created in 2021/10/20 14:36
@@ -28,7 +30,7 @@ public class BaiYeEntity {
     //叶片支数
     private Double leafCount;
     //面积
-    private Double area;
+    private BigDecimal area;
     //备注
     private String remark;
 
