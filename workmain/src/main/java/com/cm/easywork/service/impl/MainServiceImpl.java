@@ -4,7 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
-import com.cm.easywork.commonutil.InfoUtils;
+import com.cm.easywork.commonutil.BaiyeUtils;
 import com.cm.easywork.datalistener.BaiYeInputEntityListener;
 import com.cm.easywork.datalistener.LanGanInputEntityListener;
 import com.cm.easywork.entity.BaiYeEntity;
@@ -89,8 +89,8 @@ public class MainServiceImpl implements IMainService {
                 BaiYeEntity baiYeEntity5 = new BaiYeEntity();
                 baiYeEntity5.setFrameLength((high - 40 - 120) / 2);
                 baiYeEntity5.setFrameCount(number * 4);
-                baiYeEntity5.setHoles(InfoUtils.getHolesSK(baiYeInputEntity)[0]);
-                baiYeEntity5.setPosition(InfoUtils.getHolesSK(baiYeInputEntity)[1]);
+                baiYeEntity5.setHoles(BaiyeUtils.getHolesSK(baiYeInputEntity)[0]);
+                baiYeEntity5.setPosition(BaiyeUtils.getHolesSK(baiYeInputEntity)[1]);
                 baiYeEntity5.setLeafLength(String.valueOf(width - 40 - 10 - 5));
                 baiYeEntity5.setLeafCount(number * baiYeEntity5.getHoles() * 2);
                 baiYeEntitylist.add(baiYeEntity5);
@@ -99,8 +99,8 @@ public class MainServiceImpl implements IMainService {
                     BaiYeEntity baiYeEntity6 = new BaiYeEntity();
                     baiYeEntity6.setFrameLength((high - 40 - 120) / 2);
                     baiYeEntity6.setFrameCount(number * 2);
-                    baiYeEntity6.setHoles(InfoUtils.getHolesSK(baiYeInputEntity)[0]);
-                    baiYeEntity6.setPosition(InfoUtils.getHolesSK(baiYeInputEntity)[1]);
+                    baiYeEntity6.setHoles(BaiyeUtils.getHolesSK(baiYeInputEntity)[0]);
+                    baiYeEntity6.setPosition(BaiyeUtils.getHolesSK(baiYeInputEntity)[1]);
                     baiYeEntity6.setLeafLength("通孔");
                     baiYeEntitylist.add(baiYeEntity6);
                 }
@@ -118,8 +118,8 @@ public class MainServiceImpl implements IMainService {
                 BaiYeEntity baiYeEntity2 = new BaiYeEntity();
                 baiYeEntity2.setFrameLength(high - 40);
                 baiYeEntity2.setFrameCount(number * 2);
-                baiYeEntity2.setHoles(InfoUtils.getHolesGD(baiYeInputEntity)[0]);
-                baiYeEntity2.setPosition(InfoUtils.getHolesGD(baiYeInputEntity)[1]);
+                baiYeEntity2.setHoles(BaiyeUtils.getHolesGD(baiYeInputEntity)[0]);
+                baiYeEntity2.setPosition(BaiyeUtils.getHolesGD(baiYeInputEntity)[1]);
                 baiYeEntity2.setLeafLength(String.valueOf(width - 5));
                 baiYeEntity2.setLeafCount(number * baiYeEntity2.getHoles());
                 baiYeEntitylist.add(baiYeEntity2);
@@ -128,8 +128,8 @@ public class MainServiceImpl implements IMainService {
                     BaiYeEntity baiYeEntity3 = new BaiYeEntity();
                     baiYeEntity3.setFrameLength(high - 40);
                     baiYeEntity3.setFrameCount(number);
-                    baiYeEntity3.setHoles(InfoUtils.getHolesGD(baiYeInputEntity)[0]);
-                    baiYeEntity3.setPosition(InfoUtils.getHolesGD(baiYeInputEntity)[1]);
+                    baiYeEntity3.setHoles(BaiyeUtils.getHolesGD(baiYeInputEntity)[0]);
+                    baiYeEntity3.setPosition(BaiyeUtils.getHolesGD(baiYeInputEntity)[1]);
                     baiYeEntitylist.add(baiYeEntity3);
                 }
             }
@@ -151,8 +151,8 @@ public class MainServiceImpl implements IMainService {
                 BaiYeEntity baiYeEntity3 = new BaiYeEntity();
                 baiYeEntity3.setFrameLength(high - 40);
                 baiYeEntity3.setFrameCount(number * 2);
-                baiYeEntity3.setHoles(InfoUtils.getHolesDK1(baiYeInputEntity)[0]);
-                baiYeEntity3.setPosition(InfoUtils.getHolesDK1(baiYeInputEntity)[1]);
+                baiYeEntity3.setHoles(BaiyeUtils.getHolesDK1(baiYeInputEntity)[0]);
+                baiYeEntity3.setPosition(BaiyeUtils.getHolesDK1(baiYeInputEntity)[1]);
                 baiYeEntity3.setLeafLength(String.valueOf(width - 5));
                 baiYeEntity3.setLeafCount(number * baiYeEntity3.getHoles());
                 baiYeEntitylist.add(baiYeEntity3);
@@ -161,8 +161,8 @@ public class MainServiceImpl implements IMainService {
                     BaiYeEntity baiYeEntity4 = new BaiYeEntity();
                     baiYeEntity4.setFrameLength(high - 60 - baiYeInputEntity.getOpenHeight());
                     baiYeEntity4.setFrameCount(number);
-                    baiYeEntity4.setHoles(InfoUtils.getHolesDK1(baiYeInputEntity)[0]);
-                    baiYeEntity4.setPosition(InfoUtils.getHolesDK1(baiYeInputEntity)[1]);
+                    baiYeEntity4.setHoles(BaiyeUtils.getHolesDK1(baiYeInputEntity)[0]);
+                    baiYeEntity4.setPosition(BaiyeUtils.getHolesDK1(baiYeInputEntity)[1]);
                     baiYeEntity4.setLeafLength("通孔");
                     baiYeEntitylist.add(baiYeEntity4);
                 }
@@ -175,8 +175,8 @@ public class MainServiceImpl implements IMainService {
                 BaiYeEntity baiYeEntity6 = new BaiYeEntity();
                 baiYeEntity6.setFrameLength(baiYeInputEntity.getOpenHeight() - 50);
                 baiYeEntity6.setFrameCount(number * 2);
-                baiYeEntity6.setHoles(InfoUtils.getHolesDK2(baiYeInputEntity)[0]);
-                baiYeEntity6.setPosition(InfoUtils.getHolesDK2(baiYeInputEntity)[1]);
+                baiYeEntity6.setHoles(BaiyeUtils.getHolesDK2(baiYeInputEntity)[0]);
+                baiYeEntity6.setPosition(BaiyeUtils.getHolesDK2(baiYeInputEntity)[1]);
                 baiYeEntity6.setLeafLength(String.valueOf(width - 40 - 10 - 5));
                 baiYeEntity6.setLeafCount(number * baiYeEntity6.getHoles());
                 baiYeEntitylist.add(baiYeEntity6);
@@ -185,8 +185,8 @@ public class MainServiceImpl implements IMainService {
                     BaiYeEntity baiYeEntity7 = new BaiYeEntity();
                     baiYeEntity7.setFrameLength(baiYeInputEntity.getOpenHeight() - 50);
                     baiYeEntity7.setFrameCount(number);
-                    baiYeEntity7.setHoles(InfoUtils.getHolesDK2(baiYeInputEntity)[0]);
-                    baiYeEntity7.setPosition(InfoUtils.getHolesDK2(baiYeInputEntity)[1]);
+                    baiYeEntity7.setHoles(BaiyeUtils.getHolesDK2(baiYeInputEntity)[0]);
+                    baiYeEntity7.setPosition(BaiyeUtils.getHolesDK2(baiYeInputEntity)[1]);
                     baiYeEntity7.setLeafLength("通孔");
                     baiYeEntitylist.add(baiYeEntity7);
                 }
@@ -209,8 +209,8 @@ public class MainServiceImpl implements IMainService {
                 BaiYeEntity baiYeEntity3 = new BaiYeEntity();
                 baiYeEntity3.setFrameLength(high - 40);
                 baiYeEntity3.setFrameCount(number * 2);
-                baiYeEntity3.setHoles(InfoUtils.getHolesBK1(baiYeInputEntity)[0]);
-                baiYeEntity3.setPosition(InfoUtils.getHolesBK1(baiYeInputEntity)[1]);
+                baiYeEntity3.setHoles(BaiyeUtils.getHolesBK1(baiYeInputEntity)[0]);
+                baiYeEntity3.setPosition(BaiyeUtils.getHolesBK1(baiYeInputEntity)[1]);
                 baiYeEntity3.setLeafLength(String.valueOf(width - 5));
                 baiYeEntity3.setLeafCount(number * baiYeEntity3.getHoles());
                 baiYeEntitylist.add(baiYeEntity3);
@@ -219,8 +219,8 @@ public class MainServiceImpl implements IMainService {
                     BaiYeEntity baiYeEntity4 = new BaiYeEntity();
                     baiYeEntity4.setFrameLength((high - 60) / 2);
                     baiYeEntity4.setFrameCount(number);
-                    baiYeEntity4.setHoles(InfoUtils.getHolesBK1(baiYeInputEntity)[0]);
-                    baiYeEntity4.setPosition(InfoUtils.getHolesBK1(baiYeInputEntity)[1]);
+                    baiYeEntity4.setHoles(BaiyeUtils.getHolesBK1(baiYeInputEntity)[0]);
+                    baiYeEntity4.setPosition(BaiyeUtils.getHolesBK1(baiYeInputEntity)[1]);
                     baiYeEntity4.setLeafLength("通孔");
                     baiYeEntitylist.add(baiYeEntity4);
                 }
@@ -233,8 +233,8 @@ public class MainServiceImpl implements IMainService {
                 BaiYeEntity baiYeEntity6 = new BaiYeEntity();
                 baiYeEntity6.setFrameLength(((baiYeInputEntity.getOpenHeight() - 60) / 2) - 50);
                 baiYeEntity6.setFrameCount(number * 2);
-                baiYeEntity6.setHoles(InfoUtils.getHolesBK2(baiYeInputEntity)[0]);
-                baiYeEntity6.setPosition(InfoUtils.getHolesBK2(baiYeInputEntity)[1]);
+                baiYeEntity6.setHoles(BaiyeUtils.getHolesBK2(baiYeInputEntity)[0]);
+                baiYeEntity6.setPosition(BaiyeUtils.getHolesBK2(baiYeInputEntity)[1]);
                 baiYeEntity6.setLeafLength(String.valueOf(width - 40 - 10 - 5));
                 baiYeEntity6.setLeafCount(number * baiYeEntity6.getHoles());
                 baiYeEntitylist.add(baiYeEntity6);
@@ -243,8 +243,8 @@ public class MainServiceImpl implements IMainService {
                     BaiYeEntity baiYeEntity7 = new BaiYeEntity();
                     baiYeEntity7.setFrameLength(((baiYeInputEntity.getOpenHeight() - 60) / 2) - 50);
                     baiYeEntity7.setFrameCount(number);
-                    baiYeEntity7.setHoles(InfoUtils.getHolesBK2(baiYeInputEntity)[0]);
-                    baiYeEntity7.setPosition(InfoUtils.getHolesBK2(baiYeInputEntity)[1]);
+                    baiYeEntity7.setHoles(BaiyeUtils.getHolesBK2(baiYeInputEntity)[0]);
+                    baiYeEntity7.setPosition(BaiyeUtils.getHolesBK2(baiYeInputEntity)[1]);
                     baiYeEntity7.setLeafLength("通孔");
                     baiYeEntitylist.add(baiYeEntity7);
                 }
@@ -272,8 +272,8 @@ public class MainServiceImpl implements IMainService {
                 BaiYeEntity baiYeEntity4 = new BaiYeEntity();
                 baiYeEntity4.setFrameLength(width - 40 - 50);
                 baiYeEntity4.setFrameCount(number * 2);
-                baiYeEntity4.setHoles(InfoUtils.getHolesQK(baiYeInputEntity)[0]);
-                baiYeEntity4.setPosition(InfoUtils.getHolesQK(baiYeInputEntity)[1]);
+                baiYeEntity4.setHoles(BaiyeUtils.getHolesQK(baiYeInputEntity)[0]);
+                baiYeEntity4.setPosition(BaiyeUtils.getHolesQK(baiYeInputEntity)[1]);
                 baiYeEntity4.setLeafLength(String.valueOf(width - 50 - 5));
                 baiYeEntity4.setFrameCount(number * 2);
                 baiYeEntitylist.add(baiYeEntity4);
@@ -282,8 +282,8 @@ public class MainServiceImpl implements IMainService {
                     BaiYeEntity baiYeEntity5 = new BaiYeEntity();
                     baiYeEntity5.setFrameLength(width - 40 - 50);
                     baiYeEntity5.setFrameCount(number);
-                    baiYeEntity5.setHoles(InfoUtils.getHolesQK(baiYeInputEntity)[0]);
-                    baiYeEntity5.setPosition(InfoUtils.getHolesQK(baiYeInputEntity)[1]);
+                    baiYeEntity5.setHoles(BaiyeUtils.getHolesQK(baiYeInputEntity)[0]);
+                    baiYeEntity5.setPosition(BaiyeUtils.getHolesQK(baiYeInputEntity)[1]);
                     baiYeEntity5.setLeafLength("通孔");
                     baiYeEntitylist.add(baiYeEntity5);
                 }
@@ -307,8 +307,8 @@ public class MainServiceImpl implements IMainService {
                 BaiYeEntity baiYeEntity3 = new BaiYeEntity();
                 baiYeEntity3.setFrameLength(high - 40);
                 baiYeEntity3.setFrameCount(number * 2);
-                baiYeEntity3.setHoles(InfoUtils.getHolesZYK1(baiYeInputEntity)[0]);
-                baiYeEntity3.setPosition(InfoUtils.getHolesZYK1(baiYeInputEntity)[1]);
+                baiYeEntity3.setHoles(BaiyeUtils.getHolesZYK1(baiYeInputEntity)[0]);
+                baiYeEntity3.setPosition(BaiyeUtils.getHolesZYK1(baiYeInputEntity)[1]);
                 baiYeEntity3.setLeafLength(String.valueOf(width - openWidth - 20 - 5));
                 baiYeEntity3.setLeafCount(number * baiYeEntity3.getHoles());
                 baiYeEntitylist.add(baiYeEntity3);
@@ -321,8 +321,8 @@ public class MainServiceImpl implements IMainService {
                 BaiYeEntity baiYeEntity5 = new BaiYeEntity();
                 baiYeEntity5.setFrameLength(high - 40 - 50);
                 baiYeEntity5.setFrameCount(number * 2);
-                baiYeEntity5.setHoles(InfoUtils.getHolesZYK2(baiYeInputEntity)[0]);
-                baiYeEntity5.setPosition(InfoUtils.getHolesZYK2(baiYeInputEntity)[1]);
+                baiYeEntity5.setHoles(BaiyeUtils.getHolesZYK2(baiYeInputEntity)[0]);
+                baiYeEntity5.setPosition(BaiyeUtils.getHolesZYK2(baiYeInputEntity)[1]);
                 baiYeEntity5.setLeafLength(String.valueOf(openWidth - 10 - 5));
                 baiYeEntity5.setLeafCount(number * baiYeEntity3.getHoles());
                 baiYeEntitylist.add(baiYeEntity5);
@@ -331,8 +331,8 @@ public class MainServiceImpl implements IMainService {
                     BaiYeEntity baiYeEntity6 = new BaiYeEntity();
                     baiYeEntity6.setFrameLength(high - 40 - 50);
                     baiYeEntity6.setFrameCount(number);
-                    baiYeEntity6.setHoles(InfoUtils.getHolesZYK2(baiYeInputEntity)[0]);
-                    baiYeEntity6.setPosition(InfoUtils.getHolesZYK2(baiYeInputEntity)[1]);
+                    baiYeEntity6.setHoles(BaiyeUtils.getHolesZYK2(baiYeInputEntity)[0]);
+                    baiYeEntity6.setPosition(BaiyeUtils.getHolesZYK2(baiYeInputEntity)[1]);
                     baiYeEntity6.setLeafLength("通孔");
                     baiYeEntitylist.add(baiYeEntity6);
                 }
@@ -361,8 +361,8 @@ public class MainServiceImpl implements IMainService {
                 BaiYeEntity baiYeEntity4 = new BaiYeEntity();
                 baiYeEntity4.setFrameLength(high - 40 - 50);
                 baiYeEntity4.setFrameCount(number * 4);
-                baiYeEntity4.setHoles(InfoUtils.getHolesZYK2(baiYeInputEntity)[0]);
-                baiYeEntity4.setPosition(InfoUtils.getHolesZYK2(baiYeInputEntity)[1]);
+                baiYeEntity4.setHoles(BaiyeUtils.getHolesZYK2(baiYeInputEntity)[0]);
+                baiYeEntity4.setPosition(BaiyeUtils.getHolesZYK2(baiYeInputEntity)[1]);
                 baiYeEntity4.setLeafLength(String.valueOf((width - 60) / 2 - 10 - 5));
                 baiYeEntity4.setLeafCount(number * baiYeEntity4.getHoles() * 2);
                 baiYeEntitylist.add(baiYeEntity4);
@@ -371,8 +371,8 @@ public class MainServiceImpl implements IMainService {
                     BaiYeEntity baiYeEntity5 = new BaiYeEntity();
                     baiYeEntity5.setFrameLength(high - 40 - 50);
                     baiYeEntity5.setFrameCount(number * 2);
-                    baiYeEntity5.setHoles(InfoUtils.getHolesZYK2(baiYeInputEntity)[0]);
-                    baiYeEntity5.setPosition(InfoUtils.getHolesZYK2(baiYeInputEntity)[1]);
+                    baiYeEntity5.setHoles(BaiyeUtils.getHolesZYK2(baiYeInputEntity)[0]);
+                    baiYeEntity5.setPosition(BaiyeUtils.getHolesZYK2(baiYeInputEntity)[1]);
                     baiYeEntity5.setLeafLength("通孔");
                     baiYeEntitylist.add(baiYeEntity5);
                 }
@@ -415,7 +415,14 @@ public class MainServiceImpl implements IMainService {
         List<LanGanInputEntity> lanGanInputEntitylist = langaninputentitylistener.getList();
         //准备填充数据
         List<LanGanEntity> lanGanEntityList = new ArrayList<>();
+        String crossbar = lanGanInputEntitylist.get(0).getCrossbar();
+        String[] crossbarSplit = crossbar.split("\\*");
+        String upright = lanGanInputEntitylist.get(0).getUpright();
+        String[] uprightSplit = upright.split("\\*");
+        String auxiliaryLever = lanGanInputEntitylist.get(0).getAuxiliaryLever();
+        String[] auxiliaryLeverSplit = auxiliaryLever.split("\\*");
         for (LanGanInputEntity lanGanInputEntity : lanGanInputEntitylist) {
+
             LanGanEntity lanGanEntity = new LanGanEntity();
             lanGanEntity.setHigh(lanGanInputEntity.getHigh());
             lanGanEntity.setLength(lanGanInputEntity.getLength());
@@ -427,9 +434,9 @@ public class MainServiceImpl implements IMainService {
             lanGanEntity.setHGcount(0.0D);
             lanGanEntity.setSGlength(0.0D);
             lanGanEntity.setSGcount(0.0D);
-            lanGanEntity.setLZlength(0.0D);
+            lanGanEntity.setLZlength(lanGanInputEntity.getLength()-40);
             lanGanEntity.setLZcount(0.0D);
-            lanGanEntity.setMGlength(0.0D);
+            lanGanEntity.setMGlength(lanGanInputEntity.getHigh());
             lanGanEntity.setMGcount(0.0D);
             lanGanEntity.setLeft(0.0D);
             lanGanEntity.setRight(0.0D);

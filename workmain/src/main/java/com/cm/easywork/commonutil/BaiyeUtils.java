@@ -24,7 +24,7 @@ import java.util.List;
  * @date: Created in 2021/10/20 19:17
  * @description:
  */
-public class InfoUtils {
+public class BaiyeUtils {
     //双开门计算孔数和定位
     public static double[] getHolesSK(BaiYeInputEntity baiYeInputEntity) {
         double[] result = new double[2];
