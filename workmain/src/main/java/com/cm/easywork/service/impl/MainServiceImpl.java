@@ -5,6 +5,7 @@ import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.cm.easywork.commonutil.BaiyeUtils;
+import com.cm.easywork.commonutil.LanGanUtils;
 import com.cm.easywork.datalistener.BaiYeInputEntityListener;
 import com.cm.easywork.datalistener.LanGanInputEntityListener;
 import com.cm.easywork.entity.BaiYeEntity;
@@ -394,7 +395,7 @@ public class MainServiceImpl implements IMainService {
         double sumLeafCount = baiYeEntitylist.stream().filter(t -> t.getLeafCount() != null).mapToDouble(BaiYeEntity::getLeafCount).sum();
         BigDecimal bigDecimal = new BigDecimal("0");
         for (BaiYeEntity baiYeEntity : baiYeEntitylist) {
-            if (baiYeEntity.getArea()!=null){
+            if (baiYeEntity.getArea() != null) {
                 bigDecimal = bigDecimal.add(baiYeEntity.getArea());
             }
         }
@@ -415,34 +416,62 @@ public class MainServiceImpl implements IMainService {
         List<LanGanInputEntity> lanGanInputEntitylist = langaninputentitylistener.getList();
         //准备填充数据
         List<LanGanEntity> lanGanEntityList = new ArrayList<>();
+        //横杆
         String crossbar = lanGanInputEntitylist.get(0).getCrossbar();
         String[] crossbarSplit = crossbar.split("\\*");
+        //竖杆
+        String verticalPole = lanGanInputEntitylist.get(0).getVerticalPole();
+        String[] verticalPoleSplit = verticalPole.split("\\*");
+        //立柱
         String upright = lanGanInputEntitylist.get(0).getUpright();
         String[] uprightSplit = upright.split("\\*");
+        //面管
         String auxiliaryLever = lanGanInputEntitylist.get(0).getAuxiliaryLever();
         String[] auxiliaryLeverSplit = auxiliaryLever.split("\\*");
+        List<String[]> splitArgsList = new ArrayList<>();
+        splitArgsList.add(crossbarSplit);
+        splitArgsList.add(verticalPoleSplit);
+        splitArgsList.add(uprightSplit);
+        splitArgsList.add(auxiliaryLeverSplit);
         for (LanGanInputEntity lanGanInputEntity : lanGanInputEntitylist) {
 
             LanGanEntity lanGanEntity = new LanGanEntity();
             lanGanEntity.setHigh(lanGanInputEntity.getHigh());
             lanGanEntity.setLength(lanGanInputEntity.getLength());
             lanGanEntity.setShards(lanGanInputEntity.getShards());
-            lanGanEntity.setHGnumberOfShards(0.0D);
-            lanGanEntity.setHGlength(0.0D);
+
+            double[] hGlength = LanGanUtils.getHGlength(lanGanInputEntity, splitArgsList);
+            lanGanEntity.setHGnumberOfShards(hGlength[0]);
+            lanGanEntity.setHGlength(hGlength[1]);
+
             lanGanEntity.setHGnumberOfWeldingRods(0.0D);
             lanGanEntity.setHGverticalRods(0.0D);
             lanGanEntity.setHGcount(0.0D);
-            lanGanEntity.setSGlength(0.0D);
+            lanGanEntity.setSGlength(lanGanInputEntity.getLength() - Double.parseDouble(auxiliaryLeverSplit[0]) - 200 - Double.parseDouble(crossbarSplit[0]) * 2);
             lanGanEntity.setSGcount(0.0D);
-            lanGanEntity.setLZlength(lanGanInputEntity.getLength()-40);
+            lanGanEntity.setLZlength(lanGanInputEntity.getLength() - 40);
             lanGanEntity.setLZcount(0.0D);
             lanGanEntity.setMGlength(lanGanInputEntity.getHigh());
             lanGanEntity.setMGcount(0.0D);
             lanGanEntity.setLeft(0.0D);
             lanGanEntity.setRight(0.0D);
-
+            lanGanEntityList.add(lanGanEntity);
         }
-        return null;
+        log.info("数据解析成功");
+        //获取模板文件的输入流
+        String templateName = "融创云湖十里下料单-模板.xlsx";
+        /*BaiYeInputEntity baiYeInputFirstEntity = baiYeInputEntitylist.get(0);
+        Map<String, Object> otherInfoMap = new HashMap<String, Object>();
+        otherInfoMap.put("project", baiYeInputFirstEntity.getProject());
+        otherInfoMap.put("colour", baiYeInputFirstEntity.getColour());
+        otherInfoMap.put("date", baiYeInputFirstEntity.getDate());
+        otherInfoMap.put("frame", baiYeInputFirstEntity.getFrame());
+        otherInfoMap.put("blade", baiYeInputFirstEntity.getBlade());*/
+
+        Map<String, Object> otherInfoMap = new HashMap<String, Object>();
+
+        ResponseEntity responseEntity = this.downFileResMake(templateName, lanGanEntityList, otherInfoMap);
+        return responseEntity;
     }
 
     private <E> ResponseEntity downFileResMake(String templateName, List<E> entityList, Map<String, Object> otherInfoMap) throws IOException {
