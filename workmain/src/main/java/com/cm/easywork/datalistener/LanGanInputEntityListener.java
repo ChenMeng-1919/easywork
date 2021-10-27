@@ -26,7 +26,6 @@ public class LanGanInputEntityListener extends AnalysisEventListener<LanGanInput
     public LanGanInputEntityListener() {
 
     }
-
     /**
      * 这个每一条数据解析都会来调用
      *

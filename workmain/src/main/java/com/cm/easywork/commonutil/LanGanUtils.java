@@ -15,7 +15,7 @@ public class LanGanUtils {
         int HGnumberOfShards = 0;
         //横杆长度
         double HGlength = 0;
-        for (int i = 0; i < 50; i++) {
+        for (int i = 1; i < 50; i++) {
             double v = (lanGanInputEntity.getLength() - 100 - Double.parseDouble(splitArgsList.get(3)[0]) * (i + 1)) / i;
             if (v >= 1200) {
                 double v2 = (lanGanInputEntity.getLength() - 100 - Double.parseDouble(splitArgsList.get(3)[0]) * (i + 1-1)) / (i-1);
