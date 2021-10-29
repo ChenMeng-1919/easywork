@@ -416,7 +416,7 @@ public class MainServiceImpl implements IMainService {
         List<LanGanInputEntity> lanGanInputEntitylist = langaninputentitylistener.getList();
         //准备填充数据
         List<LanGanEntity> lanGanEntityList = new ArrayList<>();
-        //横杆
+        //横杆  宽高厚
         String crossbar = lanGanInputEntitylist.get(0).getCrossbar();
         String[] crossbarSplit = crossbar.split("\\*");
         //竖杆
@@ -434,41 +434,46 @@ public class MainServiceImpl implements IMainService {
         splitArgsList.add(uprightSplit);
         splitArgsList.add(auxiliaryLeverSplit);
         for (LanGanInputEntity lanGanInputEntity : lanGanInputEntitylist) {
+            //提取变量
+            double high = lanGanInputEntity.getHigh();
+            double length = lanGanInputEntity.getLength();
+            double shards = lanGanInputEntity.getShards();
 
             LanGanEntity lanGanEntity = new LanGanEntity();
-            lanGanEntity.setHigh(lanGanInputEntity.getHigh());
-            lanGanEntity.setLength(lanGanInputEntity.getLength());
-            lanGanEntity.setShards(lanGanInputEntity.getShards());
+            lanGanEntity.setHigh(high);
+            lanGanEntity.setLength(length);
+            lanGanEntity.setShards(shards);
 
             double[] hGlength = LanGanUtils.getHGlength(lanGanInputEntity, splitArgsList);
             lanGanEntity.setHGnumberOfShards(hGlength[0]);
             lanGanEntity.setHGlength(hGlength[1]);
 
-            lanGanEntity.setHGnumberOfWeldingRods(0.0D);
-            lanGanEntity.setHGverticalRods(0.0D);
-            lanGanEntity.setHGcount(0.0D);
-            lanGanEntity.setSGlength(lanGanInputEntity.getLength() - Double.parseDouble(auxiliaryLeverSplit[0]) - 200 - Double.parseDouble(crossbarSplit[0]) * 2);
-            lanGanEntity.setSGcount(0.0D);
-            lanGanEntity.setLZlength(lanGanInputEntity.getLength() - 40);
-            lanGanEntity.setLZcount(0.0D);
-            lanGanEntity.setMGlength(lanGanInputEntity.getHigh());
-            lanGanEntity.setMGcount(0.0D);
-            lanGanEntity.setLeft(0.0D);
-            lanGanEntity.setRight(0.0D);
+            double[] hGnumberOfWeldingRods = LanGanUtils.getHGnumberOfWeldingRods(lanGanInputEntity, splitArgsList, lanGanEntity.getHGlength());
+            lanGanEntity.setHGnumberOfWeldingRods(hGnumberOfWeldingRods[0]);
+            lanGanEntity.setHGverticalRods(hGnumberOfWeldingRods[1]);
+            lanGanEntity.setHGcount(shards *lanGanEntity.getHGnumberOfShards()*hGnumberOfWeldingRods[0]);
+            lanGanEntity.setSGlength(length - Double.parseDouble(auxiliaryLeverSplit[0]) - 200 - Double.parseDouble(crossbarSplit[0]) * 2);
+            lanGanEntity.setSGcount(shards *lanGanEntity.getHGnumberOfShards()*hGnumberOfWeldingRods[0]);
+            lanGanEntity.setLZlength(length - 40);
+            lanGanEntity.setLZcount(shards *(hGnumberOfWeldingRods[0]+1));
+            lanGanEntity.setMGlength(high);
+            lanGanEntity.setMGcount(shards);
+            lanGanEntity.setLeft(hGlength[2]);
+            lanGanEntity.setRight(hGlength[2]);
             lanGanEntityList.add(lanGanEntity);
         }
         log.info("数据解析成功");
         //获取模板文件的输入流
-        String templateName = "融创云湖十里下料单-模板.xlsx";
-        /*BaiYeInputEntity baiYeInputFirstEntity = baiYeInputEntitylist.get(0);
+        String templateName = "栏杆下料单.xlsx";
+        LanGanInputEntity lanGanInputFirstEntity = lanGanInputEntitylist.get(0);
         Map<String, Object> otherInfoMap = new HashMap<String, Object>();
-        otherInfoMap.put("project", baiYeInputFirstEntity.getProject());
-        otherInfoMap.put("colour", baiYeInputFirstEntity.getColour());
-        otherInfoMap.put("date", baiYeInputFirstEntity.getDate());
-        otherInfoMap.put("frame", baiYeInputFirstEntity.getFrame());
-        otherInfoMap.put("blade", baiYeInputFirstEntity.getBlade());*/
-
-        Map<String, Object> otherInfoMap = new HashMap<String, Object>();
+        otherInfoMap.put("project", lanGanInputFirstEntity.getProject());
+        otherInfoMap.put("colour", lanGanInputFirstEntity.getColour());
+        otherInfoMap.put("date", lanGanInputFirstEntity.getDate());
+        otherInfoMap.put("crossbar", lanGanInputFirstEntity.getCrossbar());
+        otherInfoMap.put("verticalPole", lanGanInputFirstEntity.getVerticalPole());
+        otherInfoMap.put("upright", lanGanInputFirstEntity.getUpright());
+        otherInfoMap.put("auxiliaryLever", lanGanInputFirstEntity.getAuxiliaryLever());
 
         ResponseEntity responseEntity = this.downFileResMake(templateName, lanGanEntityList, otherInfoMap);
         return responseEntity;
