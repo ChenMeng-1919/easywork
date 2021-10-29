@@ -382,7 +382,7 @@ public class MainServiceImpl implements IMainService {
 
         log.info("数据解析成功");
         //获取模板文件的输入流
-        String templateName = "融创云湖十里下料单-模板.xlsx";
+        String templateName = "百叶下料单.xlsx";
         BaiYeInputEntity baiYeInputFirstEntity = baiYeInputEntitylist.get(0);
         Map<String, Object> otherInfoMap = new HashMap<String, Object>();
         otherInfoMap.put("project", baiYeInputFirstEntity.getProject());
@@ -438,29 +438,30 @@ public class MainServiceImpl implements IMainService {
             double high = lanGanInputEntity.getHigh();
             double length = lanGanInputEntity.getLength();
             double shards = lanGanInputEntity.getShards();
+            if ("直栏杆".equals(lanGanInputEntity.getRailingType())) {
+                LanGanEntity lanGanEntity = new LanGanEntity();
+                lanGanEntity.setHigh(high);
+                lanGanEntity.setLength(length);
+                lanGanEntity.setShards(shards);
 
-            LanGanEntity lanGanEntity = new LanGanEntity();
-            lanGanEntity.setHigh(high);
-            lanGanEntity.setLength(length);
-            lanGanEntity.setShards(shards);
+                double[] hGlength = LanGanUtils.getHGlength(lanGanInputEntity, splitArgsList);
+                lanGanEntity.setHGnumberOfShards(hGlength[0]);
+                lanGanEntity.setHGlength(hGlength[1]);
 
-            double[] hGlength = LanGanUtils.getHGlength(lanGanInputEntity, splitArgsList);
-            lanGanEntity.setHGnumberOfShards(hGlength[0]);
-            lanGanEntity.setHGlength(hGlength[1]);
-
-            double[] hGnumberOfWeldingRods = LanGanUtils.getHGnumberOfWeldingRods(lanGanInputEntity, splitArgsList, lanGanEntity.getHGlength());
-            lanGanEntity.setHGnumberOfWeldingRods(hGnumberOfWeldingRods[0]);
-            lanGanEntity.setHGverticalRods(hGnumberOfWeldingRods[1]);
-            lanGanEntity.setHGcount(shards * lanGanEntity.getHGnumberOfShards() * 2);
-            lanGanEntity.setSGlength(high - Double.parseDouble(auxiliaryLeverSplit[0]) - 100 * 2 - Double.parseDouble(crossbarSplit[0]) * 2);
-            lanGanEntity.setSGcount(shards * lanGanEntity.getHGnumberOfShards() * hGnumberOfWeldingRods[0]);
-            lanGanEntity.setLZlength(high - Double.parseDouble(auxiliaryLeverSplit[0]));
-            lanGanEntity.setLZcount(shards * (hGlength[0] + 1));
-            lanGanEntity.setMGlength(length);
-            lanGanEntity.setMGcount(shards);
-            lanGanEntity.setLeft(hGlength[2]);
-            lanGanEntity.setRight(hGlength[2]);
-            lanGanEntityList.add(lanGanEntity);
+                double[] hGnumberOfWeldingRods = LanGanUtils.getHGnumberOfWeldingRods(lanGanInputEntity, splitArgsList, lanGanEntity.getHGlength());
+                lanGanEntity.setHGnumberOfWeldingRods(hGnumberOfWeldingRods[0]);
+                lanGanEntity.setHGverticalRods(hGnumberOfWeldingRods[1]);
+                lanGanEntity.setHGcount(shards * lanGanEntity.getHGnumberOfShards() * 2);
+                lanGanEntity.setSGlength(high - Double.parseDouble(auxiliaryLeverSplit[0]) - 100 * 2 - Double.parseDouble(crossbarSplit[0]) * 2);
+                lanGanEntity.setSGcount(shards * lanGanEntity.getHGnumberOfShards() * hGnumberOfWeldingRods[0]);
+                lanGanEntity.setLZlength(high - Double.parseDouble(auxiliaryLeverSplit[0]));
+                lanGanEntity.setLZcount(shards * (hGlength[0] + 1));
+                lanGanEntity.setMGlength(length);
+                lanGanEntity.setMGcount(shards);
+                lanGanEntity.setLeft(hGlength[2]);
+                lanGanEntity.setRight(hGlength[2]);
+                lanGanEntityList.add(lanGanEntity);
+            }
         }
         log.info("数据解析成功");
         //获取模板文件的输入流
@@ -513,7 +514,7 @@ public class MainServiceImpl implements IMainService {
         HttpHeaders headers = new HttpHeaders();
         //通过ResponseEntity对象完成文件下载，需要注意的是writer对象生成的格式与导出文件的拓展名对应，否则就会提示无法打开文件，拓展名无效
         //在响应头中设置下载默认的名称
-        headers.add("Content-Disposition", "attachment;filename=" + URLEncoder.encode("融创云湖十里下料单-模板" + ".xlsx", "UTF-8"));
+        headers.add("Content-Disposition", "attachment;filename=" + URLEncoder.encode(templateName, "UTF-8"));
 
         return ResponseEntity.ok()
                 .headers(headers)

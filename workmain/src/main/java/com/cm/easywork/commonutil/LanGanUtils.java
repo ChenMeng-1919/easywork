@@ -56,7 +56,7 @@ public class LanGanUtils {
         for (int i = 1; i < 100; i++) {
             double v = (HGlength - Double.parseDouble(splitArgsList.get(1)[0]) * i) / (i + 1);
             if (v <= 110) {
-                result[0] = i ;
+                result[0] = i;
                 result[1] = v;
                 break;
             }
