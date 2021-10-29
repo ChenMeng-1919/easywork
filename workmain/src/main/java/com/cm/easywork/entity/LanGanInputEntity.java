@@ -43,4 +43,7 @@ public class LanGanInputEntity {
 
     @ExcelProperty("面管")
     private String auxiliaryLever;
+
+    @ExcelProperty("栏杆类型")
+    private String railingType;
 }

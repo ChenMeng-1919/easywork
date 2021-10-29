@@ -30,7 +30,7 @@ public class LanGanUtils {
         for (double j = 100; j > 90; j -= 0.5) {
             double v = (lanGanInputEntity.getLength() - j - j - Double.parseDouble(splitArgsList.get(3)[0]) * (HGnumberOfShards + 1)) / HGnumberOfShards;
             if ((int) v == v || v <= 1200) {
-                Double[] tmp ={v,j};
+                Double[] tmp = {v, j};
                 resultList.add(tmp);
             }
         }
@@ -47,20 +47,21 @@ public class LanGanUtils {
             HGlength = resultList.get(0)[0];
             left = resultList.get(0)[1];
         }
-        double[] result = {HGnumberOfShards, HGlength,left};
+        double[] result = {HGnumberOfShards, HGlength, left};
         return result;
     }
-    public static double[] getHGnumberOfWeldingRods(LanGanInputEntity lanGanInputEntity, List<String[]> splitArgsList,Double HGlength) {
-        double[] result=new double[2];
-        for (int i = 0; i < 100; i++) {
+
+    public static double[] getHGnumberOfWeldingRods(LanGanInputEntity lanGanInputEntity, List<String[]> splitArgsList, Double HGlength) {
+        double[] result = new double[2];
+        for (int i = 1; i < 100; i++) {
             double v = (HGlength - Double.parseDouble(splitArgsList.get(1)[0]) * i) / (i + 1);
-       if (v>110){
-           double v2 = (HGlength - Double.parseDouble(splitArgsList.get(1)[0]) * i-1) / (i + 1-1);
-           result[0]=i-1;
-           result[1]=v2;
-           break;
-       }
+            if (v <= 110) {
+                result[0] = i ;
+                result[1] = v;
+                break;
+            }
         }
-        return result;}
+        return result;
+    }
 
 }

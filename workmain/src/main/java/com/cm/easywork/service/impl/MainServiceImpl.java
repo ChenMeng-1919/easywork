@@ -451,12 +451,12 @@ public class MainServiceImpl implements IMainService {
             double[] hGnumberOfWeldingRods = LanGanUtils.getHGnumberOfWeldingRods(lanGanInputEntity, splitArgsList, lanGanEntity.getHGlength());
             lanGanEntity.setHGnumberOfWeldingRods(hGnumberOfWeldingRods[0]);
             lanGanEntity.setHGverticalRods(hGnumberOfWeldingRods[1]);
-            lanGanEntity.setHGcount(shards *lanGanEntity.getHGnumberOfShards()*hGnumberOfWeldingRods[0]);
-            lanGanEntity.setSGlength(length - Double.parseDouble(auxiliaryLeverSplit[0]) - 200 - Double.parseDouble(crossbarSplit[0]) * 2);
-            lanGanEntity.setSGcount(shards *lanGanEntity.getHGnumberOfShards()*hGnumberOfWeldingRods[0]);
-            lanGanEntity.setLZlength(length - 40);
-            lanGanEntity.setLZcount(shards *(hGnumberOfWeldingRods[0]+1));
-            lanGanEntity.setMGlength(high);
+            lanGanEntity.setHGcount(shards * lanGanEntity.getHGnumberOfShards() * 2);
+            lanGanEntity.setSGlength(high - Double.parseDouble(auxiliaryLeverSplit[0]) - 100 * 2 - Double.parseDouble(crossbarSplit[0]) * 2);
+            lanGanEntity.setSGcount(shards * lanGanEntity.getHGnumberOfShards() * hGnumberOfWeldingRods[0]);
+            lanGanEntity.setLZlength(high - Double.parseDouble(auxiliaryLeverSplit[0]));
+            lanGanEntity.setLZcount(shards * (hGlength[0] + 1));
+            lanGanEntity.setMGlength(length);
             lanGanEntity.setMGcount(shards);
             lanGanEntity.setLeft(hGlength[2]);
             lanGanEntity.setRight(hGlength[2]);
