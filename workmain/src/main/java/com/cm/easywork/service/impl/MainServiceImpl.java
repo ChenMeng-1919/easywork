@@ -433,11 +433,13 @@ public class MainServiceImpl implements IMainService {
         splitArgsList.add(verticalPoleSplit);
         splitArgsList.add(uprightSplit);
         splitArgsList.add(auxiliaryLeverSplit);
+        int countControl = 0;
         for (LanGanInputEntity lanGanInputEntity : lanGanInputEntitylist) {
             //提取变量
             double high = lanGanInputEntity.getHigh();
             double length = lanGanInputEntity.getLength();
             double shards = lanGanInputEntity.getShards();
+            //转角栏杆控制
             if ("直栏杆".equals(lanGanInputEntity.getRailingType())) {
                 LanGanEntity lanGanEntity = new LanGanEntity();
                 lanGanEntity.setHigh(high);
@@ -460,6 +462,36 @@ public class MainServiceImpl implements IMainService {
                 lanGanEntity.setMGcount(shards);
                 lanGanEntity.setLeft(hGlength[2]);
                 lanGanEntity.setRight(hGlength[2]);
+                lanGanEntityList.add(lanGanEntity);
+            }
+            if ("转角栏杆".equals(lanGanInputEntity.getRailingType())) {
+                LanGanEntity lanGanEntity = new LanGanEntity();
+                lanGanEntity.setHigh(high);
+                lanGanEntity.setLength(length);
+                lanGanEntity.setShards(shards);
+
+                double[] hGlength = LanGanUtils.getHGlengthZJ(lanGanInputEntity, splitArgsList);
+                lanGanEntity.setHGnumberOfShards(hGlength[0]);
+                lanGanEntity.setHGlength(hGlength[1]);
+
+                double[] hGnumberOfWeldingRods = LanGanUtils.getHGnumberOfWeldingRods(lanGanInputEntity, splitArgsList, lanGanEntity.getHGlength());
+                lanGanEntity.setHGnumberOfWeldingRods(hGnumberOfWeldingRods[0]);
+                lanGanEntity.setHGverticalRods(hGnumberOfWeldingRods[1]);
+                lanGanEntity.setHGcount(shards * lanGanEntity.getHGnumberOfShards() * 2);
+                lanGanEntity.setSGlength(high - Double.parseDouble(auxiliaryLeverSplit[0]) - 100 * 2 - Double.parseDouble(crossbarSplit[0]) * 2);
+                lanGanEntity.setSGcount(shards * lanGanEntity.getHGnumberOfShards() * hGnumberOfWeldingRods[0]);
+                lanGanEntity.setLZlength(high - Double.parseDouble(auxiliaryLeverSplit[0]));
+                lanGanEntity.setLZcount(shards * (hGlength[0] + 1));
+                lanGanEntity.setMGlength(length - Double.parseDouble(auxiliaryLeverSplit[1]));
+                lanGanEntity.setMGcount(shards);
+                if (countControl % 2 == 0) {
+                    lanGanEntity.setLeft(hGlength[2]);
+                    lanGanEntity.setRight(40);
+                } else {
+                    lanGanEntity.setLeft(40);
+                    lanGanEntity.setRight(hGlength[2]);
+                }
+                countControl++;
                 lanGanEntityList.add(lanGanEntity);
             }
         }
