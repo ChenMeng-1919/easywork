@@ -64,6 +64,21 @@ public class LanGanUtils {
         return result;
     }
 
+    //组装栏杆获取孔数和定位
+    public static double[] getHGnumberOfWeldingRodsZZ(LanGanInputEntity lanGanInputEntity, List<String[]> splitArgsList, Double HGlength) {
+        double[] result = new double[2];
+        for (int i = 1; i < 100; i++) {
+            double v = (HGlength - (i - 1) * 129 - 23.5) / 2;
+            if (v <= 110) {
+                result[0] = i;
+                result[1] = v;
+                break;
+            }
+        }
+        return result;
+    }
+
+
     /*转角栏杆*/
     public static double[] getHGlengthZJ(LanGanInputEntity lanGanInputEntity, List<String[]> splitArgsList) {
         //分片数
@@ -105,4 +120,44 @@ public class LanGanUtils {
         return result;
     }
 
+    /*组装栏杆*/
+    public static double[] getHGlengthZZ(LanGanInputEntity lanGanInputEntity, List<String[]> splitArgsList) {
+        //分片数
+        int HGnumberOfShards = 0;
+        //横杆长度
+        double HGlength = 0;
+        double left = 0;
+        ArrayList<Double[]> resultList = new ArrayList<>();
+        //确定分片数
+        for (int i = 1; i < 50; i++) {
+            double v = (lanGanInputEntity.getLength() - 100 - 100 - Double.parseDouble(splitArgsList.get(2)[0]) * (i + 1)) / i - 5;
+            if (v <= 1200 && v > 0) {
+                HGnumberOfShards = i;
+                break;
+            }
+        }
+        //确定横杆长度的备选集合
+        for (double j = 100; j > 90; j -= 0.5) {
+            double v = (lanGanInputEntity.getLength() - j - j - Double.parseDouble(splitArgsList.get(2)[0]) * (HGnumberOfShards + 1)) / HGnumberOfShards - 5;
+            if ((int) v == v && v <= 1200) {
+                Double[] tmp = {v, j};
+                resultList.add(tmp);
+            }
+        }
+        //判断有无最优解
+        for (Double[] aDouble : resultList) {
+            if (aDouble[0] % 10 == 0 || aDouble[0] % 10 == 5) {
+                HGlength = aDouble[0];
+                left = aDouble[1];
+                break;
+            }
+        }
+        //如果无最优解则取最大整数
+        if (HGlength == 0) {
+            HGlength = resultList.get(0)[0];
+            left = resultList.get(0)[1];
+        }
+        double[] result = {HGnumberOfShards, HGlength, left};
+        return result;
+    }
 }

@@ -494,6 +494,31 @@ public class MainServiceImpl implements IMainService {
                 countControl++;
                 lanGanEntityList.add(lanGanEntity);
             }
+            if ("组装栏杆".equals(lanGanInputEntity.getRailingType())) {
+                LanGanEntity lanGanEntity = new LanGanEntity();
+                lanGanEntity.setHigh(high);
+                lanGanEntity.setLength(length);
+                lanGanEntity.setShards(shards);
+
+                double[] hGlength = LanGanUtils.getHGlengthZZ(lanGanInputEntity, splitArgsList);
+                lanGanEntity.setHGnumberOfShards(hGlength[0]);
+                lanGanEntity.setHGlength(hGlength[1]);
+
+                double[] hGnumberOfWeldingRods = LanGanUtils.getHGnumberOfWeldingRodsZZ(lanGanInputEntity, splitArgsList, lanGanEntity.getHGlength());
+                lanGanEntity.setHGnumberOfWeldingRods(hGnumberOfWeldingRods[0]);
+                lanGanEntity.setHGverticalRods(hGnumberOfWeldingRods[1]);
+                lanGanEntity.setHGcount(shards * lanGanEntity.getHGnumberOfShards() * 2);
+                lanGanEntity.setSGlength(high - Double.parseDouble(auxiliaryLeverSplit[0]) - 100 * 2 - 5);
+                lanGanEntity.setSGcount(shards * lanGanEntity.getHGnumberOfShards() * hGnumberOfWeldingRods[0]);
+                lanGanEntity.setLZlength(high - Double.parseDouble(auxiliaryLeverSplit[0]));
+                lanGanEntity.setLZcount(shards * (hGlength[0] + 1));
+                lanGanEntity.setMGlength(length);
+                lanGanEntity.setMGcount(shards);
+                lanGanEntity.setLeft(hGlength[2]);
+                lanGanEntity.setRight(hGlength[2]);
+
+                lanGanEntityList.add(lanGanEntity);
+            }
         }
         log.info("数据解析成功");
         //获取模板文件的输入流
@@ -507,6 +532,17 @@ public class MainServiceImpl implements IMainService {
         otherInfoMap.put("verticalPole", lanGanInputFirstEntity.getVerticalPole());
         otherInfoMap.put("upright", lanGanInputFirstEntity.getUpright());
         otherInfoMap.put("auxiliaryLever", lanGanInputFirstEntity.getAuxiliaryLever());
+
+        double shardsum = lanGanEntityList.stream().mapToDouble(LanGanEntity::getShards).sum();
+        double hgsum = lanGanEntityList.stream().mapToDouble(LanGanEntity::getHGcount).sum();
+        double sgsum = lanGanEntityList.stream().mapToDouble(LanGanEntity::getSGcount).sum();
+        double lzsum = lanGanEntityList.stream().mapToDouble(LanGanEntity::getLZcount).sum();
+        double mgsum = lanGanEntityList.stream().mapToDouble(LanGanEntity::getMGcount).sum();
+        otherInfoMap.put("shardsum", shardsum);
+        otherInfoMap.put("hgsum", hgsum);
+        otherInfoMap.put("sgsum", sgsum);
+        otherInfoMap.put("lzsum", lzsum);
+        otherInfoMap.put("mgsum", mgsum);
 
         ResponseEntity responseEntity = this.downFileResMake(templateName, lanGanEntityList, otherInfoMap);
         return responseEntity;
